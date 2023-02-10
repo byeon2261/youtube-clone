@@ -69,3 +69,15 @@ devDependencies항목도 필요하지만 나의 application에는 설치되지 �
     }
 
 node_modules폴더와 package-lock.json파일은 삭제를 진행한다.
+
+### 2.2 Understanding Dependencies
+
+npm install을 실행하면 package.json의 dependencies를 찾아 알아서 필요한 package를 설치해준다.
+
+    $ npm i
+
+똑같이 express가 설치된다. 깃허브에 node_module을 올리지 않으며 다른 사용자에게 프로젝트를 보낼때 module은 용량이 크므로 보내지 않는다.
+이럴때 package.json을 받아서 모듈을 설치할 때 사용되며 매우 유용하다.
+
+npm install 명령어는 package.json파일을 수정하기때문에 package.json이 수정된 부분이 있다면 저장을 하고 install을 진행한다.
+저장이 안된상태에서 install을 진행하면 충돌이 일어난다.
