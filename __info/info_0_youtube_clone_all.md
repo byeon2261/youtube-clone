@@ -81,3 +81,48 @@ npm install을 실행하면 package.json의 dependencies를 찾아 알아서 필
 
 npm install 명령어는 package.json파일을 수정하기때문에 package.json이 수정된 부분이 있다면 저장을 하고 install을 진행한다.
 저장이 안된상태에서 install을 진행하면 충돌이 일어난다.
+
+### 2.3 The Tower of Babel
+
+express를 구현하도록 하겠다.
+
+    const express = require("express");  // require 메서드를 통해 외부 모듈을 가져올 수 있디.
+
+    const app = express();
+
+더 나은 코드로 구현이 가능하나 babel사용을 위해 짜여진 코드이다. babel은 자바스크립트 컴파일러이다.
+nodeJS가 이해하지 못하는 Javascript가 있다.
+nodeJS가 이해하는 자바스크립트만 사용을 할건지 nodeJS가 이해하지 못하는 코드를 사용하면서 nodeJS가 이해할 수 있게 컴파일을 해줄지 해야한다.
+
+babel 홈페이지에 가면 최신 자바스크립트 문법이 어떻게 변환되는지 볼 수 있다.
+
+<https://babeljs.io/>
+
+물론 후자를 위해 컴파일러인 babel을 사용한다. babel을 설치한다.
+
+    $ npm install --save-dev @babel/core
+
+babel 패키지가 설치되며 package.json에 내용이 추가된다.
+
+    "devDependencies": {
+        "@babel/core": "^7.20.12"
+    }
+
+--save-dev명령어를 사용하면 package.json에 "devDependencies" 항목으로 추가된다.
+devDependencies는 개발자를 위한 Dependencies이며 개발에만 사용된다.
+
+babel.config.json파일을 생성한다.
+
+    $ touch babel.config.json
+
+@babel.config.json
+
+    {
+        "presets": ["@babel/preset-env"]
+    }
+
+babel/preset-env도 설치해준다.
+
+    $ npm install @babel/preset-env --save-dev
+
+preset은 babel을 위한 매우 거대한 플러그인이다. 최신 자바스크립트 문법이 사용가능하다.
