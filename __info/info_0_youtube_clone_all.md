@@ -126,3 +126,45 @@ babel/preset-env도 설치해준다.
     $ npm install @babel/preset-env --save-dev
 
 preset은 babel을 위한 매우 거대한 플러그인이다. 최신 자바스크립트 문법이 사용가능하다.
+
+### 2.4 Nodemon
+
+babel을 사용하여 변환을 시키는 코드가 있다. 하지만 우리는 babel을 직접 사용하여 js파일을 변환하지 않는다.
+
+    // 사용하지 않는다!
+    require("@babel/core").transform("code", {
+        presets: ["@babel/preset-env"],
+    });
+
+대신 package.json에 babel로 컴파일하는 script를 추가해준다. 그전에 babel/node을 설치해야한다. ! babel/modemon참고
+<https://babeljs.io/>
+
+    $ npm install @babel/node --save-dev
+
+바벨을 통해 node를 실행하도록 script를 변경해준다.
+@package.json
+
+    "start": "node index.js" -> "dev": "babel-node index.js"
+
+    $ npm run dev
+    // 로 실행
+
+babel을 사용함으로 최신 문법을 사용할 수 있게 되었다. index.js를 변경 적용하도록 한다.
+
+    import express from "express"; // require을 쓰는것을 import로 변경하여 사용가능
+
+    const app = express();
+
+nodemon을 사용하면 서버에 관련된 파일이 변경이 되면 다시 실행을 해준다. nodemon을 설치해준다.
+
+    $ npm i nodemon --save-dev
+
+설치와 함께 package.json 리스트에 추가가 된다. 실행 script에 nodemon 명령어를 추가해준다.
+
+    "dev": "nodemon --exec babel-node index.js"
+
+이로써 nodemon으로 서버를 구축할 수 있게 되었으며 babel-node를 사용하여 js최신문법을 사용하는데에도 문제가 발생하지 않는다.
+
+    $ npm run dev
+
+console 명령어가 종료되지 않으며 파일이 변경되면 재실행된다.
