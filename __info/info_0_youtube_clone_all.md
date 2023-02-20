@@ -168,3 +168,31 @@ nodemon을 사용하면 서버에 관련된 파일이 변경이 되면 다시 �
     $ npm run dev
 
 console 명령어가 종료되지 않으며 파일이 변경되면 재실행된다.
+
+# 3 Introduction to Express
+
+### 3.0 Your First Server
+
+서버를 구현한다. src폴더를 생성하여 index.js를 안으로 옮겨준다. package.json에 index 실행 path를 변경해준다.
+
+    "scripts": {
+        "dev": "nodemon --exec babel-node src/index.js"
+    },
+
+서버가 request를 받아 응답을 할 수 있는 코드를 작성하겠다. request응답은 listen()을 사용하여 받을 수 있다.
+
+@src/index.js
+
+    const AppListening = () => {
+        console.log("4000 port listening success!");
+    };
+
+    app.listen(4000, AppListening());  // 4000: 임의의 서버 port
+
+console에 응답 문구가 나온다. 브라우져에서도 서버 통신이 가능하다.
+
+    http://localhost:4000/
+
+    >>>: Cannot GET /
+
+홈페이지를 갖고 오지는 못하지만(구현을 안했으니..) 해당 응답은 response해준다.
