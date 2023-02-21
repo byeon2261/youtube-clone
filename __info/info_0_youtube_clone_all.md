@@ -228,3 +228,9 @@ send를 사용하면 데이터를 보내준다.
     return res.send("hhhhhhh");
 
 브라우져에 텍스트가 출력된다.
+
+### 3.4 Recap
+
+<https://expressjs.com/ko/4x/api.html#express>
+
+express의 함수와 속성들을 확인 할 수 있다.
