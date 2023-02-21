@@ -196,3 +196,35 @@ console에 응답 문구가 나온다. 브라우져에서도 서버 통신이 �
     >>>: Cannot GET /
 
 홈페이지를 갖고 오지는 못하지만(구현을 안했으니..) 해당 응답은 response해준다.
+
+### 3.2 GET Requests part Two
+
+GET 요청에 받아서 실행될 함수를 구현한다.
+@src/index.js
+
+    const homeListening = () => console.log("sombody insert to the home ❗️");
+
+    app.get("/", homeListening);  // 실행될 기능은 무조건 함수 형식으로 들어가야한다.
+
+root주소로 접근을 하면 console이 찍힌다. 하지만 브라우져는 응답을 받지 않았기때문에 무한 대기 상태가 된다.
+
+### 3.3 Responses
+
+app.get() 메게변수에는 순서대로 request, response가 있다.
+
+    const handlehome = (req, res) => console.log(req);
+
+    app.get("/", handlehome);
+
+    >>>: 매우 많은 데이터가 나온다... 한번 해보도록
+        (쿠키, 메서드, 접근자 정보, 접근 위치 등등)
+
+res의 end함수를 사용하면 response데이터를 보내지 않고 request요청을 종료할 수 있다.
+
+    return res.end()
+
+send를 사용하면 데이터를 보내준다.
+
+    return res.send("hhhhhhh");
+
+브라우져에 텍스트가 출력된다.
