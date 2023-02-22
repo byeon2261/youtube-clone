@@ -234,3 +234,20 @@ send를 사용하면 데이터를 보내준다.
 <https://expressjs.com/ko/4x/api.html#express>
 
 express의 함수와 속성들을 확인 할 수 있다.
+
+### 3.5 Middlewares part One
+
+handler를 여러개 사용하여 middleware를 사용할 수 있다.
+get() 메게변수중에 next()를 사용하면 다음 middleware 또는 finalware로 이동이 가능하다.
+
+    const gossipMiddleware = (req, res, next) => {
+        console.log("I'm in middleware.");
+        next();
+    };
+    const handleHome = (req, res) => {
+        return res.send("<h1>hhhhhhh<h1>");
+    };
+
+    app.get("/", gossipMiddleware, handleHome);
+
+gossipMiddleware > handleHome 순으로 실행이 된다.
