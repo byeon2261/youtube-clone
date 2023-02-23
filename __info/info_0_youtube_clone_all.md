@@ -251,3 +251,40 @@ get() 메게변수중에 next()를 사용하면 다음 middleware 또는 finalwa
     app.get("/", gossipMiddleware, handleHome);
 
 gossipMiddleware > handleHome 순으로 실행이 된다.
+next는 미들웨어든 컨테이너든 사용이 가능하다.(미들웨어, 컨테이너... 위치에 따라 명칭만 바뀔뿐이다.)
+
+### 3.6 Middlewares part Two
+
+app의 use()를 구현해본다. use()는 global middleware를 구현하는데 사용된다.
+
+@index.js
+
+    const logger = (req, res, next) => {  // 이전 미들웨어를 이름만 변경
+        console.log(`${req.method}: ${req.url}`);
+        next();
+    };
+    app.use(logger);  // 여러 함수를 중복되어 사용이 가능하다.
+    app.get("/", handleHome);
+
+logger()는 어느 url에 이동을 하든 실행이 된다.
+
+미들웨어 로직중에 return을 하게되면 뒤의 로직은 실행되지 않는다.(당연히)
+
+    const privateModdleware = (req, res, next) => {
+        const url = req.url;
+        if (url === "/private") {
+            console.log("user coming to private url.");
+            return res.send("Not Allowed.");
+        }
+        console.log("insert success.");
+        next();
+    };
+    const privatePage = (req,res) => {
+        return res.send("I'm private page")
+    }
+
+    app.use(privateModdleware);
+    app.get("/private", privatePage);
+
+
+    >>>: Not Allowed. (브라우져)
