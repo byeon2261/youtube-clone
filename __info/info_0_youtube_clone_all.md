@@ -1,6 +1,11 @@
 # Youtube clone information !!
 
     setup :
+        nodeJS
+        express
+        babel
+        nodemon
+        morgan
     업데이트 필요
 
 ## 2 Set Up
@@ -288,3 +293,29 @@ logger()는 어느 url에 이동을 하든 실행이 된다.
 
 
     >>>: Not Allowed. (브라우져)
+
+### 3.6 ~ 3.10 ... Recap
+
+### 3.11 External Middlewares
+
+미들웨어 morgan을 설치한다. morgan은 node.js용 request logger middleware이다.
+
+    $ npm i morgan
+
+<https://github.com/expressjs/morgan>
+
+logger기능 구현을 한다.
+
+    import morgan from "morgan";
+    ...
+    const logger = morgan("dev");
+    ...
+    app.use(logger);
+
+    >>>: GET / 304 1.837 ms - -
+
+# ! 몰랐지만 import부분은 이름을 마음대로 지정이 가능하다.
+
+    import gimochi from "morgan";
+
+    gimochi("dev")
