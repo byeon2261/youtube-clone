@@ -1,17 +1,31 @@
 import express from "express";
 import gimochi from "morgan";
 
+const PORT = 4000;
+
 const app = express();
 const logger = gimochi("dev");
-
-const handleHome = (req, res) => {
-  return res.send("<h1>hhhhhhh<h1>");
-};
-
 app.use(logger);
-app.get("/", handleHome);
 
-const PORT = 4000;
+const globalRouter = express.Router();
+
+globalRouter.get("/", handleHome);
+
+const userRouter = express.Router();
+
+const handleEditUser = (req, res) => res.send("Edit User");
+
+userRouter.get("/edit", handleEditUser);
+
+const videoRouter = express.Router();
+
+const handleWatchVideo = (req, res) => res.send("Watch Video");
+
+videoRouter.get("/watch", handleWatchVideo);
+
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
 
 const AppListening = () => {
   console.log(`✅ listening server on http://localhost:${PORT} 🚀`);
