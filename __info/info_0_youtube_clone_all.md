@@ -319,3 +319,26 @@ logger기능 구현을 한다.
     import gimochi from "morgan";
 
     gimochi("dev")
+
+### 4.1 Making Our Routers
+
+url에 단계를 나누어 각 단계마다 app에 연결하는 것을 라우터라고 한다.
+
+    /users/login
+    /users/edit
+    이때 '/login', '/edit'이 라우터이다.
+
+express의 router()로 라우터를 생성할 수 있다.
+
+    const userRouter = express.Router();
+
+해당 라우터에 핸들러를 등록 및 url 설정을 한다.
+
+    const handleEditUser = (req, res) => res.send("Edit User");
+    userRouter.get("/edit", handleEditUser);
+
+그리고 라우터를 express().use에 등록하면 완성이다.
+
+    app.use("/users", userRouter);
+
+URL에 '/users/edit'으로 접근이 가능하다.
