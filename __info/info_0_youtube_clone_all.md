@@ -352,3 +352,26 @@ clean code에 있는 내용을 비롯해서 설명을 하자면 코드는 생각
 @routes/... 라우터들 각 파일들 생성해서 코드 이동
 
 중복되는 부분이 있으니 코드는 더 개선을 진행한다.
+
+### 4.3 Exports
+
+이젠 라우터를 폴더와 파일로 나눴으니 라우터 안에 있는 컨트롤러(핸들러)를 따로 분류하는 작업을 진행하겠다.
+
+@controllers/... 각 파일들 생성헤서 코드 이동
+
+globalRouter는 공통적으로 실행되는 로직만 남겨둔다.
+globalRouter에 있는 기능이 있는 로직은 각 파일로 이동을 해준다.
+
+# ! export를 여러개 보내줄 경우 받는 파일은 dictionary형식으로 받아야한다.
+
+    export const handleWatch = ...
+    export const handleEdit = ...
+    // 일경우 import할때
+
+    import { handleWatch } from "..."
+    // 형식으로 받아야한다.  //이제야 react할때 {...} 형식으로 쓰는 이유를 알았다.
+
+export default는 함수형식만 사용이 가능하다.
+
+    export default const edit = () => ...  (X)
+    export default function edit(){...}    (O)
