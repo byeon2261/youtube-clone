@@ -375,3 +375,8 @@ export default는 함수형식만 사용이 가능하다.
 
     export default const edit = () => ...  (X)
     export default function edit(){...}    (O)
+
+### 4.6 Planning Routes
+
+README.md에 작업할 내용 추가
+컨트롤러에 해당 내용 추가 및 라우터에도 추가 진행
