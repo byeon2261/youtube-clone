@@ -380,3 +380,7 @@ export default는 함수형식만 사용이 가능하다.
 
 README.md에 작업할 내용 추가
 컨트롤러에 해당 내용 추가 및 라우터에도 추가 진행
+
+### 4.7 URL Parameters part One
+
+URL에 파라미터를 받는 url은 같은 레벨에 있는 url중 가장 밑에 위치한다.
