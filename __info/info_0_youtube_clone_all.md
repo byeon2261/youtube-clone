@@ -400,3 +400,13 @@ URL에 파라미터를 받는 url은 같은 레벨에 있는 url중 가장 밑�
 ### 4.0 Returning HTML
 
 send를 html형식으로 전송이 가능하다. controller에 적용해준다.
+
+```javascript
+res.send(
+  "<!DOCTYPE html><html lang='ko'><head><title>Youtube</title></head><body><h1>Home</h1><footer>&copy; 2023 youtube -  All rights reserved</footer></body></html>"
+);
+```
+
+url을 보내주는 코드가 길어진다. 해당 문제를 해결하기 편리한 프로그램이 PUG가 있다.
+
+<https://github.com/pugjs/pug>
