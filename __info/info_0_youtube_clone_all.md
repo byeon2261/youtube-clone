@@ -410,3 +410,46 @@ res.send(
 url을 보내주는 코드가 길어진다. 해당 문제를 해결하기 편리한 프로그램이 PUG가 있다.
 
 <https://github.com/pugjs/pug>
+
+### 5.1 Configuring Pug
+
+pug는 템플릿 엔진이다. pug를 설치해준다.
+
+$ npm i pug
+
+expressjs에는 view engine을 설정할 수가 있다.
+
+```javascript
+app.set("view engine", "pug");
+```
+
+views폴더와 home.pug를 생성해준다.
+이전 html태그형식을 pug형식으로 변경해서 작성해준다. python과 같이 띄어쓰기로 인식을 한다.
+
+```pug
+doctype html
+html
+    head
+        title Youtube
+    body
+        h1 Home gg
+        footer &copy; 2023 youtube -  All rights reserved
+```
+
+기존컨트롤러에 view파일을 렌더링한다.
+
+```javascript
+... = res.render("home")
+```
+
+로직을 적용하면 에러가 발생한다. view파일을 youtube-clone폴더에서 찾는다.
+express를 실행시키는 package.json파일 위치 기준으로 view파일을 찾는다.
+
+path를 사용하여 파일을 찾는 위치를 변경이 가능하다.
+
+```javascript
+import path from "path";
+
+...
+app.set("views", path.join(__dirname, "views"));
+```

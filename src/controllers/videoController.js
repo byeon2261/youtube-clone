@@ -1,7 +1,4 @@
-export const tranding = (req, res) =>
-  res.send(
-    "<!DOCTYPE html><html lang='ko'><head><title>Youtube</title></head><body><h1>Home</h1><footer>&copy; 2023 youtube -  All rights reserved</footer></body></html>"
-  );
+export const tranding = (req, res) => res.render("home");
 export const see = (req, res) =>
   res.send(
     `<!DOCTYPE html><html lang='ko'><head><title>Youtube</title></head><body><h1>Watch Video #${req.params.id}</h1><footer>&copy; 2023 youtube -  All rights reserved</footer></body></html>`
