@@ -384,3 +384,15 @@ README.md에 작업할 내용 추가
 ### 4.7 URL Parameters part One
 
 URL에 파라미터를 받는 url은 같은 레벨에 있는 url중 가장 밑에 위치한다.
+
+### 4.8 URL Parameters part Two
+
+정규식을 사용하는 방법으로 URL의 타입을 정할 수 있다.
+
+\w+: 모든 문자, 숫자 선택.
+\d+: 모든 숫자 선택.
+
+    videoRouter.get("/:id(\\d+)", see);
+
+숫자형식으로만 접근이 가능하다.
+이런 방식으로 타입을 지정할 수 있다.
