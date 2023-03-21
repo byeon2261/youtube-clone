@@ -445,6 +445,12 @@ html
 로직을 적용하면 에러가 발생한다. view파일을 youtube-clone폴더에서 찾는다.
 express를 실행시키는 package.json파일 위치 기준으로 view파일을 찾는다.
 
+```javascript
+console.log(process.cwd());
+```
+
+현재 프로젝트 폴더 위치를 확인할 수 있다.
+
 path를 사용하여 파일을 찾는 위치를 변경이 가능하다.
 
 ```javascript
