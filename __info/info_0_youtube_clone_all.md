@@ -499,3 +499,32 @@ include partials/footer.pug
 ```
 
 footer부분에 넣어준다.
+
+### 5.3 Extending Templates
+
+일정 중복된는 부분을 사용하는데에는 include를 사용하였다.
+주요 내용을 제외한 페이지 구성을 생성하여 불러오는 기능을 사용할 수 있다.
+
+@src/views/base.pug 생성
+
+```pug
+doctype html
+html
+    head
+        title Youtube
+    body
+        block content
+        include partials/footer.pug
+```
+
+기존 페이지 내용 전부 삭제 후 다음 내용을 입력한다.
+@src/views/home
+
+```pug
+extends base.pug
+
+block content
+    h1 Home
+```
+
+extend한 로직에서 block 이름에 맞는 로직을 가져와 해당 부분에 적용한다.
