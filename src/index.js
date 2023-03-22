@@ -14,7 +14,7 @@ const logger = gimochi("dev");
 app.use(logger);
 
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", process.cwd() + "/src/views");
 
 app.use("/", globalRouter);
 app.use("/users", userRouter);

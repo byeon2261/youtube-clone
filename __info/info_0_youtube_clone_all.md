@@ -415,7 +415,7 @@ url을 보내주는 코드가 길어진다. 해당 문제를 해결하기 편리
 
 pug는 템플릿 엔진이다. pug를 설치해준다.
 
-$ npm i pug
+    $ npm i pug
 
 expressjs에는 view engine을 설정할 수가 있다.
 
@@ -459,3 +459,43 @@ import path from "path";
 ...
 app.set("views", path.join(__dirname, "views"));
 ```
+
+### 5.2 Partials
+
+express 셋팅방법에 대해 찾을 수있다.
+
+api.html 셋팅
+<https://expressjs.com/en/4x/api.html#app>
+
+```javascript
+app.set("views", process.cwd() + "/src/views");
+```
+
+정상작동한다.
+
+<https://pugjs.org/api/getting-started.html>
+
+watch페이지를 구현하여 videoController에 render로 적용한다.
+
+```pug
+...
+h1 watch page!
+footer &copy; #{new Date().getFullYear()} -  All rights reserved
+```
+
+#{}사용하여 js함수를 사용할 수 있다.
+
+footer와 head같이 공통으로 사용되는 로직을 분할하여 적용할 수 있다.
+
+@src/views/partials/footer.pug 생성 후
+footer부분을 옮겨준다.
+
+@src/views/home.pug 하고 watch.pug
+
+```pug
+...
+h1 ....
+include partials/footer.pug
+```
+
+footer부분에 넣어준다.
