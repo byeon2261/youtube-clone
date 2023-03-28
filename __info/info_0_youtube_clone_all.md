@@ -8,6 +8,8 @@
         morgan
     업데이트 필요
 
+파일 path안내중에 src가 빠진 부분도 있지만 package.json 및 설정파일을 제외한 모든 작업파일은 src안에 있다.
+
 ## 2 Set Up
 
 ### 2.0 Your First Nodejs project
@@ -528,3 +530,25 @@ block content
 ```
 
 extend한 로직에서 block 이름에 맞는 로직을 가져와 해당 부분에 적용한다.
+
+### 5.4 Variables to Templates
+
+패아지 head에 중복되는 부분이 있다.
+
+@edit.pug,home.pug,watch.pug
+
+    block title
+        [페이지명] | Youtube
+
+해당 부분을 페이지 변수를 사용하여 중복제거를 진행하겠다.
+우선 템플릿부분에 title block을 삭제해준다. 그리고 base.pug head에 타이틀을 추가해준다
+@views/base.pug
+
+    head
+        title #{pageTitle} | Youtube
+
+템플릿에 필요한 변수를 보내줘야한다. 해당 변수는 템플릿에서는 생성할 수 없다. 컨트롤러에서 생성하여 보내줄 수 있다.
+
+@controllers/videoController.js
+
+    export const tranding = (req, res) => res.render("home", { pageTitle: "Home" });
