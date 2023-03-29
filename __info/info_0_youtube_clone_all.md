@@ -571,3 +571,11 @@ head
 ```pug
 input(placeholder="Whats your name")
 ```
+
+내용을 왼쪽으로 쏠려있는것을 해결할려면 main 태그를 사용할 수 있다.
+
+```pug
+body
+    main
+        block content
+```
