@@ -552,3 +552,22 @@ extend한 로직에서 block 이름에 맞는 로직을 가져와 해당 부분�
 @controllers/videoController.js
 
     export const tranding = (req, res) => res.render("home", { pageTitle: "Home" });
+
+### 5.6 MVP Styles
+
+기본 셋팅을 하는데 좀 더 예쁘게 보고 싶다면 mvp css 설치하여 사용하면 된다. 이전 js강의에서도 사용을 했었다.
+(나중에도 사용될지는 모르겠지만, 안사용하겠지..)
+
+@views/base.pug
+
+```pug
+head
+    ...
+    link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+```
+
+태그의 props를 사용할때는 괄호를 사용한다.
+
+```pug
+input(placeholder="Whats your name")
+```
