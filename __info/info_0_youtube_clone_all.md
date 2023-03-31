@@ -579,3 +579,56 @@ body
     main
         block content
 ```
+
+### 5.7 Conditionals
+
+변수값을 넣을때 ${}를 사용하지않고 직접 대입할 수 있다.
+
+@.../base.pug
+
+```pug
+header
+    h1=pageTitle
+```
+
+header로 pageTitle값이 출력된다.
+
+이번 강의는 Conditional에 따라 화면이 변경되는 것을 연습한다.
+유저가 로그인된 상황을 연출하기 위해서 임의의 유저 정보를 생성한다.
+
+@controllers/videoController.js
+
+```javascript
+export const fakeUser = {
+  username: "gh",
+  loggedIn: true,
+};
+
+export const tranding = (req, res) =>
+  res.render("home", { pageTitle: "Home", fakeUser });
+```
+
+유저가 로그인의 상황에 따라 표기값이 변경되도록 적용한다.
+
+@views/base.pug
+
+```pug
+if fakeUser.loggedIn
+    small Hello, #{fakeUser.username}
+nav
+    ul
+        if fakeUser.loggedIn
+            li
+                a(href="/users/logout") Log out
+        else
+            li
+                a(href="/login") Log in
+```
+
+로그인을 하면 유저 이름과 logout링크를 표시한다. 테스트에서 로그인 상태를 변경하면서 진행하면된다.
+
+# ! 위 로직에서 굳이 li태그를 두번을 사용한 이유가 무엇일까?
+
+li태그를 밖으로 빼고 중복을 제거하여 테스트를 진행하여도 기능상 문제는 없어 보인다.
+
+!내용 추가 필요...
