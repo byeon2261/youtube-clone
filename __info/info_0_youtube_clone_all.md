@@ -599,7 +599,8 @@ header로 pageTitle값이 출력된다.
 @controllers/videoController.js
 
 ```javascript
-export const fakeUser = {
+// export를 하지 않아도 된다.
+const fakeUser = {
   username: "gh",
   loggedIn: true,
 };

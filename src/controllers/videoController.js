@@ -1,4 +1,4 @@
-export const fakeUser = {
+const fakeUser = {
   username: "gh",
   loggedIn: true,
 };
