@@ -633,3 +633,37 @@ nav
 li태그를 밖으로 빼고 중복을 제거하여 테스트를 진행하여도 기능상 문제는 없어 보인다.
 
 !내용 추가 필요...
+
+### 5.8 Iteration
+
+이전 강의에서 사용된 list는 삭제를 진행한다. pug에서 사용이 가능한 iteration기능으로 video리스트를 구현해본다.
+
+<https://pugjs.org/language/iteration.html>
+
+임의의 리스트를 생성하여 home페이지에 보내준다.
+
+@.../videoController.js
+
+```js
+export const tranding = (req, res) => {
+  const videos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return res.render("home", { pageTitle: "Home", videos });
+};
+```
+
+home.pug에서 받은데이터를 리스트로 표현하는 기능을 구현한다. 해당 기능은 js가 아닌 pug의 기능이다.
+
+@views/home.pug
+
+```pug
+ul
+    each video in videos
+        li=video
+```
+
+컨트롤러에서 받은 데이터를 리스트로 표현한다. 받은 리스트값이 없을 경우 표현값은 else로 구현이 가능하다.
+
+```pug
+else
+    li Sorry, nothing found.
+```
