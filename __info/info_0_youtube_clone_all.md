@@ -667,3 +667,35 @@ ul
 else
     li Sorry, nothing found.
 ```
+
+### 5.9 Mixins
+
+mixin기능을 사용하여 component를 생성할 수 있다.
+기존 video리스트를 mixin파일로 옮긴다.
+
+@views/mixins/video.pug
+
+```pug
+mixin video(videoData)
+    div
+        h4=videoData.title
+        ul
+            li #{videoData.rating}/5
+            li #{videoData.comment} comments.
+            li Posted #{videoData.createdAt}.
+            li #{videoData.views} views.
+```
+
+기존 페이지에서 include하여 사용한다.
+
+```pug
+include mixins/video
+
+block ...
+    ...
+    each video in videos
+        +video(video)
+...
+```
+
+이전과 같이 작동한다. 이렇게 component를 생성할 수 있다.
