@@ -43,9 +43,11 @@ index.js파일을 생성하여 hello world를 등록한다.
 
 기본적으로 node를 이용해서 파일을 실행하지 않는다. package.json의 script에 실행할 명령어를 등록한다.
 
-    "scripts": {
-        "gimochi": "node index.js"
-    }
+```json
+"scripts": {
+    "gimochi": "node index.js"
+}
+```
 
 해당 스크립트를 실행한다.
 
@@ -71,9 +73,11 @@ devDependencies항목도 필요하지만 나의 application에는 설치되지 �
 
 @package.json
 
-    "dependencies": {
-        "express": "^4.18.2"
-    }
+```json
+"dependencies": {
+    "express": "^4.18.2"
+}
+```
 
 node_modules폴더와 package-lock.json파일은 삭제를 진행한다.
 
@@ -93,9 +97,11 @@ npm install 명령어는 package.json파일을 수정하기때문에 package.jso
 
 express를 구현하도록 하겠다.
 
-    const express = require("express");  // require 메서드를 통해 외부 모듈을 가져올 수 있디.
+```js
+const express = require("express"); // require 메서드를 통해 외부 모듈을 가져올 수 있디.
 
-    const app = express();
+const app = express();
+```
 
 더 나은 코드로 구현이 가능하나 babel사용을 위해 짜여진 코드이다. babel은 자바스크립트 컴파일러이다.
 nodeJS가 이해하지 못하는 Javascript가 있다.
@@ -699,3 +705,21 @@ block ...
 ```
 
 이전과 같이 작동한다. 이렇게 component를 생성할 수 있다.
+
+# 6 MongoDB and Mongoose
+
+### 6.0 Array Database part One
+
+데이터베이스를 구성하기전에 데이터를 다루는 강의이다.
+
+@src/routes/videoController.js
+
+```js
+export const see = (req, res) => {
+  // const id = req.params.id; 이것과 같이 작동한다.
+  const { id } = req.params;
+  // 컴퓨터 숫자는 0부터 시작하니 1을 차감한다.
+  const video = videos[id - 1];
+  return res.render("watch", { pageTitle: `Watching ${video.title}` });
+};
+```
