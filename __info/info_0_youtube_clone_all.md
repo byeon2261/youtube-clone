@@ -770,7 +770,69 @@ a(href="edit") Edit Video &rarr;
 
 ```pug
 form(action="/save-changes", method="POST")
-    // required: 필수값
+    // name: 변경시킬대상 required: 필수값
     input(name="title",placeholder="Video Title", value=video.title, required)
     input(value="Save", type="submit")
 ```
+
+### 6.3 Edit Video part Two
+
+get, post등 url을 route를 이용하여 여러개를 등록할 수 있다.
+
+@src/routes/videoRouter.js
+
+```js
+videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+```
+
+데이터를 전송하기위해서 express설정을 추가해줘야한다.
+
+<https://expressjs.com/en/4x/api.html#express.urlencoded>
+
+urlencode 기능은 미들웨어가 사용되기 전에 기능구현을 진행한다.
+
+@src/index.js
+
+```js
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/", globalRouter);
+...
+```
+
+이제 form에서 post하는 값을 인식할 수 있다.
+
+@src/controllers/videoController.js
+
+```js
+export const postEdit = (req, res) => {
+  ...
+  console.log(req.body); //req.body: 받는값
+```
+
+<https://expressjs.com/en/4x/api.html#req.body>
+
+```sh
+>>> { title: 'video #2 ㅇㅇ' }
+```
+
+해당 데이터를 적용하는 로직을 구성한다.
+
+```js
+export const postEdit = (req, res) => {
+  ...
+  const { title } = req.body;
+  videos[id - 1].title = title; // ! 해당 방법은 array DB이기 때문에 사용된 빙법이다.
+```
+
+데이터가 변경된다.
+
+물론 지금 데이터를 js에 있는 임의 데이터이기 때문에 로직에 있는 데이터가 변경되지는 않는다.
+
+# ! 그러면 변경되는 데이터는 어디에 적용되는건가?
+
+...아무튼 array DB는 사용되지 않기 때문에 깊게 파고들 필요가 없다.
+
+---
+
+어디서 데이터를 가져오는지는 모르겠지만 어느 페이지에서 보든 데이터가 변경된 값으로 잘 나온다.
