@@ -17,19 +17,25 @@
 git init.
 github repository 추가 후 remote 진행.
 
-    $ git remote add origin [깃허브 주소]
+```sh
+$ git remote add origin [깃허브 주소]
+```
 
 #### [1_nodeJS]
 
 nodeJS 패키지를 설치한다.
 
-    $ npm init
+```sh
+$ npm init
+```
 
 console에서 질문이 나오며 package.json 파일 셋팅을 등록한다. 이전에 등록한 github페이지가 홈페이지로 자동 들어가진다.
 
 index.js파일을 생성하여 hello world를 등록한다.
 
-    console.log("Hello world !!!")
+```sh
+console.log("Hello world !!!")
+```
 
 기본 프로젝트 구성이 완성되었다. package.json과 index.js 두 파일로 기본 구성이 된다.
 
@@ -400,7 +406,9 @@ URL에 파라미터를 받는 url은 같은 레벨에 있는 url중 가장 밑�
 \w+: 모든 문자, 숫자 선택.
 \d+: 모든 숫자 선택.
 
-    videoRouter.get("/:id(\\d+)", see);
+```js
+videoRouter.get("/:id(\\d+)", see);
+```
 
 숫자형식으로만 접근이 가능하다.
 이런 방식으로 타입을 지정할 수 있다.
@@ -753,3 +761,16 @@ a(href="edit") Edit Video &rarr;
 '/'를 사용하지 않은 url은 relative url이므로 해당 페이지에 최하단 url만 변경하여 이동한다.
 ('videos/3' >>> 'videos/edit')
 '/edit' url은 어디에 있든 root페이지에서 이동한다.
+
+### 6.2 Edit Video part One
+
+타이틀명을 변경하는 form을 생성해본다.
+
+@src/views/edit.pug
+
+```pug
+form(action="/save-changes", method="POST")
+    // required: 필수값
+    input(name="title",placeholder="Video Title", value=video.title, required)
+    input(value="Save", type="submit")
+```
