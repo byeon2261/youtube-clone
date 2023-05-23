@@ -710,7 +710,7 @@ block ...
 
 ### 6.0 Array Database part One
 
-데이터베이스를 구성하기전에 데이터를 다루는 강의이다.
+데이터베이스를 구성하기전에 데이터를 서버에 보내는 방식을 배우는 강의이다.
 
 @src/routes/videoController.js
 
@@ -720,6 +720,36 @@ export const see = (req, res) => {
   const { id } = req.params;
   // 컴퓨터 숫자는 0부터 시작하니 1을 차감한다.
   const video = videos[id - 1];
-  return res.render("watch", { pageTitle: `Watching ${video.title}` });
+  return res.render("watch", { pageTitle: `Watching ${video.title}`, video });
 };
 ```
+
+Controller에서 보낸 데이터를 화면에 표시한다.
+
+```pug
+h4
+    a(href=`videos/${video.id}`)=video.title
+```
+
+다음 강의에 이어서 작업진행.
+
+### 6.1 Array Database part Two
+
+값에 따라 string을 변경하는 문법이다.
+
+```pug
+span #{video.views} #{video.views === 1 ? "view" : "views"}
+```
+
+views값이 1이라면 "1 view"로 표기한다.
+
+비디오를 수정페이지로 이동하는 ancher를 생성한다.
+
+```pug
+a(href="edit") Edit Video &rarr;
+```
+
+링크를 클릭하면 'videos/edit'으로 이동한다. href="/edit"으로 해야 /edit으로 이동한다.
+'/'를 사용하지 않은 url은 relative url이므로 해당 페이지에 최하단 url만 변경하여 이동한다.
+('videos/3' >>> 'videos/edit')
+'/edit' url은 어디에 있든 root페이지에서 이동한다.
