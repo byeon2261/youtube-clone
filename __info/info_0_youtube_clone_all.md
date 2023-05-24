@@ -831,7 +831,7 @@ export const postEdit = (req, res) => {
 
 # ! 그러면 변경되는 데이터는 어디에 적용되는건가?
 
-...아무튼 array DB는 사용되지 않기 때문에 깊게 파고들 필요가 없다.
+메모리에 저장이 된다. array DB는 사용되지 않기 때문에 깊게 파고들 필요가 없다.
 
 ---
 
@@ -848,3 +848,25 @@ upload페이지를 구현한다.
 - upload 템플릿 생성
 
 get페이지만 구현한다.
+
+### 6.6 More Practice part Two
+
+임의의 데이터를 생성한다.
+
+```js
+const { title } = req.body;
+const newVideo = {
+  title,
+  rating: 4,
+  comment: 4,
+  createdAt: "just now",
+  views: 0,
+  id: videos.length + 1,
+};
+```
+
+해당 데이터를 array db에 넣어준다.
+
+```js
+videos.push(newVideo);
+```
