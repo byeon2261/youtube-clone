@@ -836,3 +836,15 @@ export const postEdit = (req, res) => {
 ---
 
 어디서 데이터를 가져오는지는 모르겠지만 어느 페이지에서 보든 데이터가 변경된 값으로 잘 나온다.
+
+### 6.5 More Practice part One
+
+base.pug에 nav리스트를 생성
+
+upload페이지를 구현한다.
+
+- videoRouter
+- videoController
+- upload 템플릿 생성
+
+get페이지만 구현한다.
