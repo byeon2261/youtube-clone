@@ -1,3 +1,4 @@
+import "./db";
 import express from "express";
 import gimochi from "morgan";
 import path from "path";

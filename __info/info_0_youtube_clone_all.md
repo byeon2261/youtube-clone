@@ -870,3 +870,44 @@ const newVideo = {
 ```js
 videos.push(newVideo);
 ```
+
+### 6.7 Introduction to MongoDB
+
+MongoDB를 설치를 진행한다.
+<https://www.mongodb.com/docs/manual/administration/install-community/>
+
+위의 url에서 사용하는 os를 선택하여 설치를 진행하면 된다.
+
+1. macOS 터미널에서 mongoDB를 실행하기위해서는 Xcode command-line tools이 필요하다.
+
+```sh
+$ xcode-select --install
+```
+
+homebrew가 설치되어 있어야한다.<https://brew.sh/#install>
+
+2. mongoDB를 설치해준다.
+
+```sh
+$ brew tap mongodb/brew
+$ brew update
+$ brew install mongodb-community@6.0
+```
+
+이제 mongoDB가 실행이된다.
+
+```sh
+$ brew services start mongodb-community@6.0
+```
+
+# ! 윈도우 및 linux, 우분투 설치에 대한 설명들이 해당 강의 댓글에 있다. 참고하자
+
+<https://nomadcoders.co/wetube/lectures/2696>
+
+윈도우에서 mongoDB설치가 복잡하다. 설치를 간단하게 해주는 사이트가 있다. chocolatey
+
+<https://community.chocolatey.org/packages>
+
+chocolatey가 설치되어 있다면 위 url에서 검색을 하여 설치 진행을 해도 된다.
+
+---
