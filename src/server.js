@@ -1,4 +1,5 @@
 import "./db";
+import "./models/Video.js";
 import express from "express";
 import gimochi from "morgan";
 import path from "path";

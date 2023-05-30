@@ -983,3 +983,39 @@ db.once("open", (open) => console.log("✅ Connected to DB"));
 ```
 
 on은 항시 받으며 once는 한번만 작동한다.
+
+### 6.9 CRUD Introduction
+
+src폴더에 models/Video.js파일을 생성해서 schema 구성을 작성한다.
+
+### 6.10 Video Model
+
+schema를 작성한다.
+
+```js
+const videoSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  createAt: Date,
+  hashtags: [{ type: String }],
+  meta: {
+    views: Number,
+    rating: Number,
+  },
+});
+```
+
+모델을 작성해준다.
+
+```js
+const video = mongoose.model("video", videoSchema);
+export default video;
+```
+
+해당 모델을 export해준다. 이제 해당 파일을 @server.js에서 import 한다.
+
+@src/server.js
+
+```js
+import "./models/Video.js";
+```
