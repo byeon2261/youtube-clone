@@ -911,3 +911,75 @@ $ brew services start mongodb-community@6.0
 chocolatey가 설치되어 있다면 위 url에서 검색을 하여 설치 진행을 해도 된다.
 
 ---
+
+### 6.8 Connecting to Mongo
+
+mongoDB설치확인을 위해 터미널에 'mongod'를 작성한다.
+
+```sh
+$ mongod
+
+>>>: {"t":{"$date":"2023-05-25T18:04:30.256+09:00"},"s":"I",  "c":"NETWORK",  "id":4915701, "ctx":"-","msg":"Initialized wire specification","attr":{"spec":{"incomingExternalClient":{"minWireVersion":0,"maxWireVersion":17},"incomingInternalClient":{"minWireVersion":0,"maxWireVersion":17},"outgoing":{"minWireVersion":6,"maxWireVersion":17},"isInternalClient":true}}}
+...
+```
+
+해당 텍스트가 여러개 나오면 설치가 성공한 것이다.
+
+'mongosh'명령어를 사용하여 shell에서 mongoDB shell안으로 들어갈 수 있다. ! mac에서의 명령어이다.
+
+```sh
+$ mongosh
+```
+
+mongoDB명령어가 사용가능하다. help명령어로 참조.
+node.js도 shell에서 접속을 하여 console.log명령어가 잘 실행되는지 확인한다.
+
+mongDB, node.js를 다 확인했다면 Node.js와 mongoDB를 이어주는 mongoose를 설치한다.
+js를 작성하면 mongoose가 mongoDB가 이해하는 언어로 변경하여 전달한다.
+
+<https://mongoosejs.com/docs/guide.html>
+
+설치를 진행한다.
+
+```sh
+$ npm i mongoose
+```
+
+@src 폴더안에 'db.js'를 생성해주며 @server.js에서 파일을 import를 해준다.
+import를 해주는 것만으로도 db.js를 실행시켜준다.
+
+@src/server.js
+
+```js
+import "./db";
+```
+
+@src/db.js
+
+```js
+import mongoose from "mongoose";
+
+mongoose.connect("mongodb://127.0.0.1:27017/youtube");
+```
+
+강의에서는 경고 문구가 뜬다. 설정을 추가해달라는 경고 문들이다. 하지만 내가 실행에서는 경고 문구가 뜨지 않는다.
+니꼬는 경고문구에 나오는 설정값을 connect문에 array형식으로 추가해주었다.
+
+```js
+mongoose.connect("mongodb://127.0.0.1:27017/youtube", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+``;
+```
+
+db상태 메세지를 추가한다.
+
+```js
+const db = mongoose.connection;
+
+db.on("error", (error) => console.log("DB error >>>: ", error));
+db.once("open", (open) => console.log("✅ Connected to DB"));
+```
+
+on은 항시 받으며 once는 한번만 작동한다.
