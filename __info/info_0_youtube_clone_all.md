@@ -1019,3 +1019,32 @@ export default video;
 ```js
 import "./models/Video.js";
 ```
+
+### 6.11 Our First Query
+
+앞으로 schema와 model은 많이 늘어날 것이며 그만큼 @server.js의 import리스트도 늘어난다.
+import만을 따로 관리할 파일을 생성하여 작성하도록 하겠다.
+
+@src/init.js
+
+```js
+import "./db";
+import "./models/Video.js";
+```
+
+기존 server.js에 있던 파일import 부분을 옮긴다.
+그리고 실행에 관련된 로직을 init.js로 이동한다.
+
+```js
+const PORT = 4000;
+
+const AppListening = () => {
+  console.log(`✅ listening server on http://localhost:${PORT} 🚀`);
+};
+
+app.listen(PORT, AppListening());
+```
+
+app선언은 server.js에 있기때문에 server.js에서 app을 export해주며 init에서 import해준다.
+
+video데이터베이스를 사용하기때문에 가짜 videos 데이터베이스는 삭제하며 데이터를 사용하던 로직도 삭제한다.

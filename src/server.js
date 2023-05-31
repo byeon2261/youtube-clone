@@ -1,13 +1,10 @@
-import "./db";
-import "./models/Video.js";
+// import "./init";
 import express from "express";
 import gimochi from "morgan";
 import path from "path";
 import globalRouter from "./routes/globalRouter";
 import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
-
-const PORT = 4000;
 
 // console.log(process.cwd());
 
@@ -22,8 +19,4 @@ app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
-const AppListening = () => {
-  console.log(`✅ listening server on http://localhost:${PORT} 🚀`);
-};
-
-app.listen(PORT, AppListening());
+export default app;
