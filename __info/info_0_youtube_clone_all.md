@@ -1035,6 +1035,8 @@ import "./models/Video.js";
 기존 server.js에 있던 파일import 부분을 옮긴다.
 그리고 실행에 관련된 로직을 init.js로 이동한다.
 
+@src/init.js
+
 ```js
 const PORT = 4000;
 
@@ -1045,6 +1047,65 @@ const AppListening = () => {
 app.listen(PORT, AppListening());
 ```
 
+pacjage.json 실행 script 실행파일을 server.js에서 init.js로 변경해준다.
+
+@package.json
+
+```js
+"scripts": {
+    "dev": "nodemon --exec babel-node src/init.js"
+},
+```
+
 app선언은 server.js에 있기때문에 server.js에서 app을 export해주며 init에서 import해준다.
 
 video데이터베이스를 사용하기때문에 가짜 videos 데이터베이스는 삭제하며 데이터를 사용하던 로직도 삭제한다.
+
+### 6.12 Our First Query part Two
+
+@videoCOntroller.js에서 import한 Video(model)의 find를 사용하여 데이터베이스를 불러온다.
+find함수는 **콜백함수**로 함수내 로직이 다 실행된 후에 실행되도록 한다.
+
+    콜백함수: 함수를 등록하기만 하고 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출하는 함수
+
+render부분을 find함수 안에 위치하면 database검색이 끝나야 rendering이 시작된다.
+
+```js
+Video.find({}, (error, videos) => {
+  return res.render("home", { pageTitle: "Home", vidoes });
+});
+```
+
+# ! Model.find() no longer accepts a callback 에러 발생
+
+!! mongoose의 버젼이 높아서 발생한 오류였다.
+지금버젼: ^7.~
+버젼 다운그래이드
+
+```sh
+$ npm i mongoose@5.12.3
+```
+
+```sh
+>>>: npm WARN deprecated @types/bson@4.2.0: This is a stub types definition. bson provides its own type definitions, so you do not need this installed.
+
+added 20 packages, removed 11 packages, changed 10 packages, and audited 387 packages in 3s
+
+58 packages are looking for funding
+  run `npm fund` for details
+
+2 vulnerabilities (1 moderate, 1 high)
+
+To address all issues, run:
+  npm audit fix --force
+```
+
+npm audit fix --force 진행.
+
+```sh
+$ npm audit fix --force
+```
+
+오류가 발생하지 않는다.
+
+---
