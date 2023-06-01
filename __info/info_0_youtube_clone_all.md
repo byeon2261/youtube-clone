@@ -1109,3 +1109,18 @@ $ npm audit fix --force
 오류가 발생하지 않는다.
 
 ---
+
+### 6.13 Async Await
+
+콜백함수를 사용하게되면 함수안에 함수가 있는 형식이된다. 콜백함수형식 대신에 promise로 변경해보겠다.
+
+@src/videoController.js
+
+```js
+export const home = async (req, res) => {
+  const video = await Video.find({});
+  return res.render("home", { pageTitle: "Home" });
+};
+```
+
+콜백함수와 다르게 순차적으로 실행되며 에러는 try-catch문을 사용하여 제어한다.
