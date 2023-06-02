@@ -1123,4 +1123,12 @@ export const home = async (req, res) => {
 };
 ```
 
+<https://ko.javascript.info/async-await>
+
 콜백함수와 다르게 순차적으로 실행되며 에러는 try-catch문을 사용하여 제어한다.
+
+### 6.14 Returns and Renders
+
+controller에서 render함수를 실행할때 return값을 전달할 필요는 없다.
+하지만 return을 사용하지않고 render함수이후에 redirect를 사용함으로써 에러가 발생시키는 경우가 있다.
+에러 방지차원에서 render할 때 return을 사용하도록 한다.
