@@ -1132,3 +1132,56 @@ export const home = async (req, res) => {
 controller에서 render함수를 실행할때 return값을 전달할 필요는 없다.
 하지만 return을 사용하지않고 render함수이후에 redirect를 사용함으로써 에러가 발생시키는 경우가 있다.
 에러 방지차원에서 render할 때 return을 사용하도록 한다.
+
+### 6.15 Creating a Video part One
+
+데이터를 폼에서 받아서 document를 생성하여 database에 저장하는 로직을 구성한다.
+
+우선 input 폼을 구성하여 controller에 데이터를 보내주는 로직을 구성한다.
+
+@src/views/upload.pug
+
+```pug
+block content
+    form(method="POST")
+        input(name, placeholder, required, type)
+```
+
+@src/controllers/videoController.js
+
+```js
+export const postUpload = (req, res) => {
+  const { title, description, hashtags } = req.body;
+  ...
+}
+```
+
+Video model에 필요한 description, hashtags를 추가해주었다.해당 데이터로 document를 생성한다.
+
+```js
+const video = new Video({
+  title,
+  description,
+  createdAt: Date.now(),
+  hashtags: hashtags.split(",").map((word) => `#${word}`),
+  meta: {
+    views: 0,
+    rating: 0,
+  },
+});
+console.log("created video >>>:", video);
+```
+
+```sh
+# shell
+created video >>>: {
+  hashtags: [ '#oh', '#my', '#god' ],
+  _id: 6479b02f5e65391d6ede099a,
+  title: 'title1',
+  description: 'des1',
+  createdAt: 2023-06-02T09:02:39.009Z,
+  meta: { views: 0, rating: 0 }
+}
+```
+
+\_id는 mongoDB에서 생성해준 컬럼이다.
