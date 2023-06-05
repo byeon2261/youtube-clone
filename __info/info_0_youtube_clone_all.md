@@ -1221,3 +1221,93 @@ await Video.create({
 결과는 같게 저장이 된다.
 
 <https://mongoosejs.com/docs/models.html#constructing-documents>
+
+### 6.17 Exceptions and Validation
+
+create문을 사용할때 에러가 발생하며 try-catch문을 사용하여 에러 해결을 한다.
+그냥 에러가 발생하면 화면 변경없이 계속 로딩상태에 빠진다.
+
+잘못된 데이터 타입을 전송하면 에러가 발생하지만 일부 데이터를 빼먹고 전송하면 에러는 발생하지 않는다.
+해당 오류를 체크하고 싶다면 컬럼 설정값에 required를 추가해준다.
+
+@src/models/Video.js
+
+```js
+const videoSchema = new mongoose.Schema({
+    ...
+    createAt: { type: Date, required: true }
+    ...
+})
+```
+
+```sh
+# shell
+# 'createAt' does not insert data
+>>>: ValidationError: Video validation failed: createdAt: Path `createdAt` is required.
+    at ValidationError.inspect (...)
+    at formatValue (node:internal/util/inspect:780:19)
+    at ...
+    ...`
+  errors: {
+    createdAt: ValidatorError: Path `createdAt` is required.
+        at validate (...)
+        at ...
+        ...
+        at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+      properties: [Object],
+      kind: 'required',
+      path: 'createdAt',
+      value: undefined,
+      reason: undefined,
+      [Symbol(mongoose:validatorError)]: true
+    }
+  },
+  _message: 'Video validation failed'
+}
+```
+
+try-catch문을 사용하여 에러조치를 진행한다.
+
+```js
+try {
+    await Video.create({
+        ...
+    })
+}catch(error){
+    ...
+    return res.render("upload", { pageTitle: `Upload Video` }
+}
+```
+
+error.\_message를 가져와서 에러메세지를 표시하도록 하겠다.
+
+@videoController.js
+
+```js
+return res.render("upload", {
+  pageTitle: `Upload Video`,
+  errorMessage: error._message,
+});
+```
+
+@src/views/upload.pug
+
+```pug
+block content
+    if errorMessage
+        span=errorMessage
+    ...
+```
+
+컬럼의 defualt값을 부여할 수 있다.
+Date.now를 넣어주면 now()함수가 바로 실행되는 것이 아니라 값을 넣어줘야 할 때만 now()가 실행된다.
+
+@src/models/Vidoe.js
+
+```js
+export const videoSchema = new mongoose.schema({
+  ...,
+  createdAt: { type: Date, required: true, default: Date.now },
+  ...,
+});
+```
