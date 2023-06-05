@@ -1185,3 +1185,39 @@ created video >>>: {
 ```
 
 \_id는 mongoDB에서 생성해준 컬럼이다.
+
+### 6.16 Creating a Video part Two
+
+해당 데이터를 저장해준다.
+
+```js
+const dbVideo = await video.save();
+console.log("dbVideo >>>:", dbVideo);
+```
+
+```sh
+# shell
+dbVideo >>>: {
+  hashtags: [ '#oh', '#my', '#god' ],
+  _id: 647d7b4862446e2a3a80dee1,
+  title: 'title1',
+  description: 'des1',
+  createdAt: 2023-06-05T06:06:00.551Z,
+  meta: { views: 0, rating: 0 },
+  __v: 0
+}
+```
+
+create를 사용하여 데이터를 바로 저장이 가능하다.
+
+```js
+await Video.create({
+    title,
+    description,
+    ...,
+})
+```
+
+결과는 같게 저장이 된다.
+
+<https://mongoosejs.com/docs/models.html#constructing-documents>
