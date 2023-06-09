@@ -5,22 +5,34 @@ export const home = async (req, res) => {
     res.render("home", { pageTitle: "Home", videos });
   });
 };
+
 export const watch = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const video = await Video.findById(id);
-  console.log(video);
-  return res.render("watch", { pageTitle: `Watching: ${video.title}`, video });
+  if (video) {
+    return res.render("watch", {
+      pageTitle: `Watching: ${video.title}`,
+      video,
+    });
+  }
+  return res.render("notFound", { pageTitle: "Video not found." });
 };
-export const getEdit = (req, res) => {
+
+export const getEdit = async (req, res) => {
   const { id } = req.params;
-  return res.render("edit", { pageTitle: `Editing: ` });
+  const video = await Video.findById(id);
+  console.log("  ❗️video >>>:", video);
+  if (!video) {
+    return res.render("notFound", { pageTitle: "Video not found." });
+  }
+  return res.render("edit", { pageTitle: `Editing: ${video.title}`, video });
 };
 export const postEdit = (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
   return res.redirect(`/videos/${id}`);
 };
+
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: `Upload Video` });
 };
