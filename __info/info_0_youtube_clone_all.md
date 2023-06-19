@@ -1311,3 +1311,9 @@ export const videoSchema = new mongoose.schema({
   ...,
 });
 ```
+
+### 6.26 Search part One
+
+search 탬플릿, router, controller
+
+controller에서 query값 가져오기
