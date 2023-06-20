@@ -1317,3 +1317,9 @@ export const videoSchema = new mongoose.schema({
 search 탬플릿, router, controller
 
 controller에서 query값 가져오기
+
+### 6.27 Search part Two
+
+param 검색 속성
+
+<https://www.regexpal.com/>
