@@ -1345,3 +1345,16 @@ videos = await Video.find({
   },
 });
 ```
+
+# 7 User Authentication
+
+### 7.0 Create Account part One
+
+유저 입력 및 데이터 확인 로직 생성
+
+## ! 놓혔던 부분.
+
+- init,server.js에 파일 추가하지 않음
+- form (method="POST") 추가하지 않음
+- res.render 사용하기
+- mongoose model 설정하기
