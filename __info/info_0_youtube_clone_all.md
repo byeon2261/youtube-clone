@@ -1358,3 +1358,26 @@ videos = await Video.find({
 - form (method="POST") 추가하지 않음
 - res.render 사용하기
 - mongoose model 설정하기
+
+경고발생
+
+```sh
+(node:28737) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+### 7.1 Create Account part Two
+
+데이터 저장
+
+! shell에서 mongosh데이터 확인하기
+
+```sh
+>>>: mongosh # mongo를 입력하면 이해를 하지 못한다.(강의 및 다른 게시물에서는 mongo명령어로 실행이된다.)
+>>>: show dbs
+>>>: use `db name`
+>>>: show collections
+>>>: db.`col_ name`.find()
+```
+
+collection생성은 data create하면 자동 생성된다.
