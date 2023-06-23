@@ -1320,6 +1320,28 @@ controller에서 query값 가져오기
 
 ### 6.27 Search part Two
 
+기본 속성은 검색하는 keyword가 제목과 일치해야 검색이 된다.
+
+```js
+videos = await Video.find({
+  title: keyword,
+});
+```
+
+당연히 제목 전체검색 기능은 불편하니 일부분 일치하는 제목이 나오도록 기능을 추가한다.
+
 param 검색 속성
 
+<https://www.mongodb.com/docs/v6.0/reference/operator/query/regex/>
 <https://www.regexpal.com/>
+
+```js
+videos = await Video.find({
+  title: {
+    // "i": 대소문자 구분을 하지 않는다.
+    $regex: new RegExp(keyword, "i"),
+    // $gt: 해당 수치보단 큰 결과값. 조회수같은데 사용 가능
+    $gt: 10000,
+  },
+});
+```
