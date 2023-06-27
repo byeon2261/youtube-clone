@@ -1381,3 +1381,21 @@ videos = await Video.find({
 ```
 
 collection생성은 data create하면 자동 생성된다.
+
+### 7.2 Creating Account part Three
+
+패스워드를 hashing을 통해 변경하여 저장한다.
+
+<https://emn178.github.io/online-tools/sha256.html>
+
+@src/models/User.js
+
+```js
+userSchema.pre("save", async function () {
+  console.log("password >>>:", this.password);
+  this.password = await bcrypt.hash(this.password, 5); // hashing을 5번 진행한다.
+  console.log("hash password >>>:", this.password);
+});
+```
+
+### 7.3 Form Validation
