@@ -1399,3 +1399,50 @@ userSchema.pre("save", async function () {
 ```
 
 ### 7.3 Form Validation
+
+joinPost에 exist()를 사용하여 중복체크를 진행한다.
+
+@src/controllers/userController.js
+
+```js
+const usernameExists = await User.exists({ username });
+if (usernameExists) {
+  return res.render("join", {
+    pageTitle: "Join",
+    errorMessage: "This username is already taken.",
+  });
+}
+const emailExists = await User.exists({ email });
+if (emailExists) {
+  return res.render("join", {
+    pageTitle: "Join",
+    errorMessage: "This email is already taken.",
+  });
+}
+```
+
+@srx/views/join.pug
+
+```pug
+block content
+    if errorMessage
+        span=errorMessage
+    form ...
+```
+
+중복되는 부분을 errorMessage로 전달하여 알려준다.
+
+만약 에러메세지를 분할 시킬필요가 없다면 exists() 전달 인자에 $or operator를 사용하여 여러인자를 보내도록 구현하는 것이 좋다.
+<https://www.mongodb.com/docs/manual/reference/operator/query/or/>
+
+```js
+const exists = await User.exists({ $or: [{ username }, { email }] });
+if (exists) {
+  return res.render("join", {
+    pageTitle: "Join",
+    errormassage: "already taken.",
+  });
+}
+```
+
+둘중에 하나라도 중복된다면 true를 반환한다.
