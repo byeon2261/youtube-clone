@@ -1446,3 +1446,13 @@ if (exists) {
 ```
 
 둘중에 하나라도 중복된다면 true를 반환한다.
+
+### 7.4 Status Codes
+
+http 상태 코드를 보내도록 하겠다.
+
+```js
+return res.status(400).render( ... )
+```
+
+response할때 상태를 같이 보내면 된다.
