@@ -27,17 +27,33 @@ export const postJoin = async (req, res) => {
     });
   }
 
-  await User.create({
-    name,
-    email,
-    username,
-    password,
-    location,
-  });
+  try {
+    await User.create({
+      name,
+      email,
+      username,
+      password,
+      location,
+    });
+  } catch (error) {
+    return res.status(400).render("join", {
+      pageTitle: "Join",
+      errorMessage: error._message,
+    });
+  }
+
   return res.redirect("/login");
 };
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("remove User");
-export const login = (req, res) => res.send("login User");
+export const getLogin = (req, res) =>
+  res.render("login", {
+    pageTitle: "Login",
+  });
+export const postLogin = (req, res) => {
+  // check if account exist
+  // check if password correct
+  res.end();
+};
 export const logout = (req, res) => res.send("logout User");
 export const see = (req, res) => res.send("see User");
