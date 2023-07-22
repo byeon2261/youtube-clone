@@ -1456,3 +1456,26 @@ return res.status(400).render( ... )
 ```
 
 response할때 상태를 같이 보내면 된다.
+
+### 7.7 Sessions and Cookies part One
+
+유저가 로그인 후 유저 데이터를 계속 갖고 있도록 기능을 구현한다.
+해당 기능은 섹션과 쿠키를 사용한다.
+
+express-session 레지스트리에 해당 기능이 있다.
+
+<https://www.npmjs.com/package/express-session>
+
+$ npm i express-session
+
+session을 @src/server.js에 사용 설정을 한다.
+
+```js
+app.use(
+    session({
+        secret: "hello!",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+```
