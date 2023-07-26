@@ -1466,16 +1466,78 @@ express-session 레지스트리에 해당 기능이 있다.
 
 <https://www.npmjs.com/package/express-session>
 
-$ npm i express-session
+    $ npm i express-session
 
 session을 @src/server.js에 사용 설정을 한다.
+해당기능은 router앞에서 초기화한다.
+
+```js
+app.use(session({}));
+```
+
+저장하면 서버가 실행되며 express-session 설정 알림이 console에 출력된다.
+
+```sh
+express-session deprecated undefined resave option; provide resave option src/server.js:24:40
+express-session deprecated undefined saveUninitialized option; provide saveUninitialized option src/server.js:24:40
+express-session deprecated req.secret; provide secret option src/server.js:24:40
+```
+
+설정을 추가해주자.
 
 ```js
 app.use(
-    session({
-        secret: "hello!",
-        resave: true,
-        saveUninitialized: true,
-    })
+  session({
+    secret: "hello!!!",
+    resave: true,
+    saveUninitialized: true,
+  })
 );
 ```
+
+설정 후 브라우져로 실행을 하면 개발자창/application/cookie에서 connect.sid가 생성된다.
+
+![7.7 Sessions and Cookies part One_1](#https://raw.githubusercontent.com/byeon2261/youtube-clone/main/__img/7.7%20Sessions%20and%20Cookies%20part%20One_1.png)
+
+해당 쿠키는 backend와 통신을 할때 브라우져가 알아서 같이 전달을 해준다.
+
+쿠키 데이터를 콘솔에 출력을 해보도록 하겠다.
+
+```js
+app.use((req, res, next) => {
+  req.sessionStore.all((err, sessions) => {
+    console.log(sessions);
+    next();
+  });
+});
+```
+
+@sh
+console에 값이 [Object: null prototype] {} 식으로 나오지 않는다면 브라우져를 새로고침 또는 로그인을 확인 해보자
+
+```sh
+[Object: null prototype] {
+  XG2xfwTgnWSusS51tvy4MQdxjIfH8Q6l: {
+    cookie: { originalMaxAge: null, expires: null, httpOnly: true, path: '/' }
+  }
+}
+```
+
+또는
+
+```js
+app.use((req, res, next) => {
+  console.log(req.headers);
+  next();
+});
+```
+
+```sh
+{
+  host: 'localhost:4000',
+  ...,
+  cookie: 'connect.sid=s%3AoyWwpnY3lJsDgb_7m46oc_DBk6cEZHd6.E3S7xJgQ5Cn%2Faj4Bay%2B5H1sIBDbofzOvtRWz%2Bh4et6U',
+}
+```
+
+방식으로 출력값이 나온다.
