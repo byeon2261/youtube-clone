@@ -1541,3 +1541,20 @@ app.use((req, res, next) => {
 ```
 
 방식으로 출력값이 나온다.
+
+### 7.10 Logged In User part Two
+
+response의 locals에 템플릿에서 사용 가능한 전역변수를 생성할 수 있다.
+@src/middleware
+
+```js
+res.locals.sexyguy = "It's you!";
+```
+
+@탬플릿
+
+```pug
+h3 sexyguy's,.. #{sexyguy}
+```
+
+locals.변수명 식으로 사용하지 않고 바로 변수명을 사용할 수 있다.
