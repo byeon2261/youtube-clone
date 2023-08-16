@@ -4,6 +4,7 @@ import session from "express-session";
 import rootRouter from "./routes/rootRouter";
 import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
+import MongoStorage from "connect-mongo";
 import { localsMiddleware } from "./middleware";
 
 // console.log(process.cwd());
@@ -21,6 +22,9 @@ app.use(
     secret: "hello!!!",
     resave: true,
     saveUninitialized: true,
+    store: MongoStorage.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/youtube",
+    }),
   })
 );
 
