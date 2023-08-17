@@ -1558,3 +1558,52 @@ h3 sexyguy's,.. #{sexyguy}
 ```
 
 locals.변수명 식으로 사용하지 않고 바로 변수명을 사용할 수 있다.
+
+### 7.14 Expiration and Secrets
+
+이전에 DB에 session값을 저장하도록 적용했다. 지금까지는 login되지 않은 user도 cookie를 생성해주었다.
+
+@src/server.js
+
+```js
+app.use(
+  session({
+    ...,
+    resave: true,
+    saveUninitialized: true,
+  })
+)
+```
+
+두 설정값을 false로 설정한다.
+
+쿠키 설정값을 넣어줄 수 있다.
+
+```js
+app.use(
+  session({
+    ...,
+    cookie: {
+      maxAge: 3000, // 3초 뒤에 cookie는 삭제된다.
+    },
+  })
+)
+```
+
+### 7.15 Environment Variables
+
+github 및 보호해야할 텍스트를 환경변수로 지정하여 관리할 수 있다. nodejs에서는 dotenv package를 설치하여 사용한다.
+
+```sh
+$ npm i dotenv
+```
+
+<https://www.npmjs.com/package/dotenv>
+
+설치후 import 대신에 require를 사용한다.
+
+```js
+require("dotenv").config();
+```
+
+'process.env.환경변수'식으로 사용이 가능하다.

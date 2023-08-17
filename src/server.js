@@ -6,6 +6,7 @@ import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
 import MongoStorage from "connect-mongo";
 import { localsMiddleware } from "./middleware";
+require("dotenv").config();
 
 // console.log(process.cwd());
 
@@ -19,11 +20,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: "hello!!!",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 3000,
+    },
     store: MongoStorage.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/youtube",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );
