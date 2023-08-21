@@ -6,7 +6,6 @@ import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
 import MongoStorage from "connect-mongo";
 import { localsMiddleware } from "./middleware";
-require("dotenv").config();
 
 // console.log(process.cwd());
 

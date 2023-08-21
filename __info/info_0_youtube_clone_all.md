@@ -1607,3 +1607,11 @@ require("dotenv").config();
 ```
 
 'process.env.환경변수'식으로 사용이 가능하다.
+
+하지만 require을 사용하면 환경변수를 사용해야할 파일에 전부 require을 추가해줘야한다.
+require대신에 import를 해주자.
+@init.js
+
+```js
+import "dotenv/config";
+```
