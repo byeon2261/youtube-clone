@@ -77,4 +77,22 @@ export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
-export const see = (req, res) => res.send("see User");
+
+export const getUserProfile = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit user profile" });
+};
+export const postUserProfile = async (req, res) => {
+  const {
+    session: {
+      user: { _id, avatarUrl },
+    },
+    file,
+  } = req;
+  const updatedUser = await User.findByIdAndUpdate(_id, {
+    avatarUrl: file ? file.path : avatarUrl,
+  });
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit-profile");
+};
+
+export const see = (req, res) => req.send("see User");

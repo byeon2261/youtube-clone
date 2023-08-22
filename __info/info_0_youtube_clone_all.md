@@ -1615,3 +1615,28 @@ require대신에 import를 해주자.
 ```js
 import "dotenv/config";
 ```
+
+### 8.6 File Uploads part One
+
+```sh
+$ npm i multer
+```
+
+<https://www.npmjs.com/package/multer>
+
+- multer설치
+- 미들웨어
+- 라우터
+- 폼
+- 컨트롤러
+
+### 8.7 File Uploads part Two
+
+- file이 없을 경우 file: {path}에서 에러가 발생한다.
+- avator을 업데이트 하지 않을경우 avatorURL을 다시 넣어준다
+- avatar 이미지를 보여준다.
+  - path를 넣어줄때 root에서부터 찾도록 적용한다.(절대 url)
+
+### 8.8 Static Files and Recap
+
+- upload폴더 site에서 지정해주기

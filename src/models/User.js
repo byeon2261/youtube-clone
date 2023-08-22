@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
+  avatarUrl: String,
   username: { type: String, require: true, unique: true },
   password: { type: String, require: true },
   name: { type: String, require: true },
@@ -10,9 +11,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function () {
-  console.log("password >>>:", this.password);
   this.password = await bcrypt.hash(this.password, 5);
-  console.log("hash password >>>:", this.password);
 });
 
 const User = mongoose.model("User", userSchema);
