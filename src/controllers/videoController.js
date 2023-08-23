@@ -28,7 +28,9 @@ export const watch = async (req, res) => {
       video,
     });
   }
-  return res.status(404).render("notFound", { pageTitle: "Video not found." });
+  return res
+    .status(404)
+    .render("notFound", { pageTitle: "Video not found.", video });
 };
 
 export const getEdit = async (req, res) => {
@@ -63,12 +65,14 @@ export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: `Upload Video` });
 };
 export const postUpload = async (req, res) => {
+  const { path: filePath } = req.file;
   const { title, description, hashtags } = req.body;
   console.log(title, description, hashtags);
   try {
     await Video.create({
       title,
       description,
+      filePath,
       hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");

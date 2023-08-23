@@ -1630,6 +1630,8 @@ $ npm i multer
 - 폼
 - 컨트롤러
 
+multer은 input의 name값을 가져온다.
+
 ### 8.7 File Uploads part Two
 
 - file이 없을 경우 file: {path}에서 에러가 발생한다.
@@ -1640,3 +1642,13 @@ $ npm i multer
 ### 8.8 Static Files and Recap
 
 - upload폴더 site에서 지정해주기
+
+### 8.9 Video Upload
+
+- video업로드 기능 구현
+  - 템플릿에 input추가 및 enctype설정
+  - 컨트롤러 값 가져와서 저장기능 구현
+  - Video 모델에 filePath 추가
+  - multer 미들웨어 추가
+    - avatar이름 변경, limit속성 추가
+  - 올려놓은 비디오를 볼 수 있도록 적용

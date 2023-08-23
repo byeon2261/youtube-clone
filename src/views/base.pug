@@ -6,6 +6,7 @@ html
     body 
         header
             h1=pageTitle
+            img(src="/" + loggedInUser.avatarUrl width=100 heigth=100)
             nav
                 ul
                     li
@@ -16,7 +17,7 @@ html
                         li 
                             a(href="/users/logout") Log out
                         li 
-                            a(href="/my-profile") My profile                        
+                            a(href="/users/edit-profile") My profile                        
                         li 
                             a(href="/videos/upload") Upload Video
                     else

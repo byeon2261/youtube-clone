@@ -7,7 +7,7 @@ import {
   getUserProfile,
   postUserProfile,
 } from "../controllers/userController";
-import { uploadFiles } from "../middleware";
+import { uploadAvatar } from "../middleware";
 
 const userRouter = express.Router();
 
@@ -17,7 +17,7 @@ userRouter.get("/remove", remove);
 userRouter
   .route("/edit-profile")
   .get(getUserProfile)
-  .post(uploadFiles.single("avatar"), postUserProfile);
+  .post(uploadAvatar.single("avatar"), postUserProfile);
 userRouter.get("/:id", see);
 
 export default userRouter;
