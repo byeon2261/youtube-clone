@@ -1769,3 +1769,72 @@ app.use("/assets", express.static("assets"));
   # alert가 발생한다.
   script(src="/assets/js/main.js")
 ```
+
+### 9.4 SCSS Loader
+
+이제 css를 처리해본다. 이번에 사용할 확장자는 scss를 사용한다. scss를 사용하기 위해서는 아래 loader가 필요하다.
+
+- style loader
+- css loader
+- scss loader
+
+<https://webpack.js.org/loaders/style-loader/>
+<https://webpack.js.org/loaders/css-loader/>
+<https://www.npmjs.com/package/sass-loader>
+
+loader 적용 순서는 아래와 같다.
+
+1. loader install
+2. 파일 생성
+3. webpack config
+
+scss loader를 설치할때 꼭 scss 같이 설치해준다.
+
+```sh
+$ npm install sass-loader sass webpack --save-dev
+
+$ npm install --save-dev css-loader
+
+$ npm install --save-dev style-loader
+```
+
+scss는 css값을 변수에 저장하여 사용이 가능하다.
+
+@src/client/scss/\_variables.scss
+
+```scss
+$tomato: tomato;
+```
+
+@src/client/scss/styles.scss
+
+```scss
+@import "./variables";
+
+body {
+  background-color: $tomato;
+  color: wheat;
+}
+```
+
+@src/client/js/main.js
+
+```js
+import "../scss/styles.scss";
+```
+
+webpack.config에 loader를 추가해준다. (module.rules안에).
+loader를 순서를 지켜서 적용해줘야한다.
+sass-loader이다. scss가 아니다.
+
+```js
+  // webpack.config는 역순으로 코드를 읽어들인다.
+  // 그러므로 가정먼저 실행될 scss-loader를 맨뒤에 적어준다. (순서를 지켜줘야한다!!)
+  {
+    test: /\.scss$/,
+    use: ["style-loader", "css-loader", "sass-loader"],
+  },
+```
+
+적용이 다 되었다면 script를 실행해보자. 에러없이 실행되어야한다.
+asset파일도 변경되었으며 브라우져 화면도 변경된다.
