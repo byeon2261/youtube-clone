@@ -1702,3 +1702,48 @@ package.json에 script를 저장해준다.
 ```
 
 해당 스크립트를 실행해주면 절대주소를 사용하라며 에러가 발생한다. 해당 에러는 다음강의에 수정한다.
+
+### 9.2 Webpack Configuration part Two
+
+path를 사용하여 주소를 합쳐준다.
+
+```js
+const path = require("path")
+
+  ...
+  path: path.resorve(__dirname, "assets/js"),
+```
+
+path.resorve대신에 백틱(``)을 사용해서 string을 합쳐도 실행에 문제가 발생하진 않는다.
+
+script를 실행시 @assets/js 폴더와 파일이 생성되며 코드가 합축된 js파일이 생성된다
+
+```js
+(async () => {
+  alert("Hi! It's work"), await fetch("");
+})();
+```
+
+rules설정이 필요하다. 각 파일의 타입에 따라 어떻게 변환을 할지 설정한다.
+
+<https://webpack.js.org/guides/asset-management/#loading-css>
+
+js를 babel loader로 변환 설정을 한다. 설정전에 babel loader를 설치해준다.
+
+```js
+$ npm i babel-loader
+```
+
+<https://www.npmjs.com/package/babel-loader>
+
+설정값을 지정해준 다음 기존 assets폴더를 삭제 후 다시 script를 실행해준다.
+
+속성에 mode를 넣어주라고 계속 경고를 넣어준다.
+
+```sh
+WARNING in configuration
+Set 'mode' option to 'development' or 'production'
+```
+
+mode옵션에 development를 넣어주면 asset파일에 개발자가 보기쉽게 파일 변환을 시켜준다.
+(production 일 경우에는 압축변환한다.)
