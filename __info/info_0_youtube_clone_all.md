@@ -1651,4 +1651,54 @@ multer은 input의 name값을 가져온다.
   - Video 모델에 filePath 추가
   - multer 미들웨어 추가
     - avatar이름 변경, limit속성 추가
-  - 올려놓은 비디오를 볼 수 있도록 적용
+- 올려놓은 비디오를 볼 수 있도록 적용
+
+### 8.10 User Profile
+
+### 9.0 Introduction to Webpack
+
+이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.
+(webpack이 어렵다면 쉬운 대체제인 gulp를 사용할 수 있다. 노마드코더에 Gulp 무료 강의가 있다!)
+
+<https://webpack.js.org/>
+
+일반적인 개발자는 webpack을 사용하는 방법은 webpack이 포함되어 있는 솔루션, 프레임워크를 사용하는 것이다.
+(react, vue등 많은 프레임워크에 이미 내설되어있다. 그리고 webpack파일이나 config파일을 노출시키지 않기때문에 일반적으로 설정 및 볼일도 없다.)
+
+하지만 이번 강습에서는 연습용으로 webpack 모듈 번들을 사용해본다.
+
+### 9.1 Webpack Configuration part One
+
+webpack. webpack cli를 설치해준다.
+
+```sh
+# package.json의 devDependencies에 넣어주기위해서 '--save-dev'를 사용한다.
+# --save-dev대신에 -D를 사용할 수 있다.
+$ npm i webpack webpack-cli --save-dev # == -D
+```
+
+@webpack.config.js파일에서 webpack설정이 가능하다. webpack은 아주 오래된 js문법만 이해할 수 있다.
+(import, export를 이해하지 못한다.)
+
+<https://webpack.js.org/concepts/#entry>
+
+webpack config전에 기본적인 front-end js파일을 생성한다. @src/client/js/main.js
+그리고 webpack.config를 작성한다.
+
+```js
+module.exports = {
+  entry: "./src/client/js/main.js",
+  output: {
+    path: "./assets/js/", // document와 달리 상대 주소를 사용하였다.
+    filename: "main.js",
+  },
+};
+```
+
+package.json에 script를 저장해준다.
+
+```json
+"asset": "webpack --config webpack.config.js"
+```
+
+해당 스크립트를 실행해주면 절대주소를 사용하라며 에러가 발생한다. 해당 에러는 다음강의에 수정한다.

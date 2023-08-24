@@ -7,7 +7,8 @@
     "url": "git+https://github.com/byeon2261/youtube-clone.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js"
+    "dev": "nodemon --exec babel-node src/init.js",
+    "asset": "webpack --config webpack.config.js"
   },
   "author": "G.H. Byeon",
   "license": "MIT",
@@ -31,6 +32,8 @@
     "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }
