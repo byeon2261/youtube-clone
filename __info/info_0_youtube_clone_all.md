@@ -1747,3 +1747,25 @@ Set 'mode' option to 'development' or 'production'
 
 mode옵션에 development를 넣어주면 asset파일에 개발자가 보기쉽게 파일 변환을 시켜준다.
 (production 일 경우에는 압축변환한다.)
+
+### 9.3 Webpack Configuration part Three
+
+이제 브라우져에서 asset파일에 접근할 수 있도록 설정을 한다. upload폴더와 같이 server에서 접근폴더를 알려줘야한다.
+
+@src/server.js
+
+```js
+app.use("/assets", express.static("assets"));
+```
+
+브라우져에서 assets폴더안의 파일에 접근이 가능해진다.
+한번더 말하자면 front-end는 assets폴더에 접근을 하며 개발자 작업은 @src/client에서 이뤄진다.
+
+템플릿에서 해당 js파일을 실행시켜본다.
+
+@src/views/base.pug
+
+```pug
+  # alert가 발생한다.
+  script(src="/assets/js/main.js")
+```
