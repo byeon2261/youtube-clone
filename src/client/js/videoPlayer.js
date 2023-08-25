@@ -2,24 +2,27 @@ import "../scss/styles.scss";
 
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
+const muteBtn = document.getElementById("mute");
+const volumeRange = document.getElementById("volume");
 
 const handlePlayClick = (e) => {
   if (video.paused) {
     video.play();
-    // playBtn.innerText = "Pause";
   } else {
     video.pause();
-    // playBtn.innerText = "Play";
   }
+  playBtn.innerText = video.paused ? "Play" : "Pause";
 };
 
-const handlePlay = () => {
-  playBtn.innerText = "Pause";
-};
-const handlePause = () => {
-  playBtn.innerText = "Play";
+const handleMuteClick = (e) => {
+  if (video.muted) {
+    video.muted = false;
+  } else {
+    video.muted = true;
+  }
+  muteBtn.innerText = video.muted ? "unmute" : "mute";
+  volumeRange.value = video.muted ? 0 : 0.5;
 };
 
 playBtn.addEventListener("click", handlePlayClick);
-video.addEventListener("play", handlePlay);
-video.addEventListener("pause", handlePause);
+muteBtn.addEventListener("click", handleMuteClick);

@@ -1874,6 +1874,8 @@ main script와 videoPlayer script가 실행되는 위치를 나누기로 한다.
 
 템플릿에 video play관련된 button및 input을 생성한다.
 
+@src/views/watch.js
+
 ```pug
 div
     button#play play  # '#play': play는 id이다.
@@ -1881,3 +1883,17 @@ div
     span#time 00:00/00:00
     input(type="range", step="0.1", min="0", max="1")#volumn
 ```
+
+스크립트에 플레이 컨트롤을 추가해준다.
+@src/client/js/videoPlayer.js
+
+### 11.2 Mute and Unmute
+
+음소거 기능을 넣어준다.
+
+<https://developer.mozilla.org/ko/docs/Web/API/HTMLMediaElement>
+
+- 버튼 클릭시
+  - mute 기능 구현
+  - mute버튼 text 변경
+  - input range 변경 (0, 0.5) (비디오 플레이어에는 적용안됨)
