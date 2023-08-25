@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec babel-node src/init.js",
-    "asset": "webpack --config webpack.config.js"
+    "assets": "webpack --config webpack.config.js"
   },
   "author": "G.H. Byeon",
   "license": "MIT",

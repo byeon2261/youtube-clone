@@ -1838,3 +1838,34 @@ sass-loader이다. scss가 아니다.
 
 적용이 다 되었다면 script를 실행해보자. 에러없이 실행되어야한다.
 asset파일도 변경되었으며 브라우져 화면도 변경된다.
+
+### 9.5 MiniCssExtractPlugin
+
+style-loader대신에 mini-css-extract-plugin 을 사용하여 css파일을 생성한다.
+이 플러그인은 CSS를 별도의 파일로 추출합니다
+
+<https://webpack.js.org/plugins/mini-css-extract-plugin/>
+
+### 11.0 Player Setup
+
+기본 video player 대신에 커스텀한 video player를 만들도록 하겠다.
+플레이어 셋팅을 시작한다.
+
+webpack.config.js 파일에 module.exports.entry에 기존에 있는 루트는 main이라 하고 videoPlayer를 추가한다.
+
+```js
+module.exports = {
+  entry: {
+    main: "./src/client/js/main.js",
+    videoPlayer: "./src/client/js/videoPlayer.js",
+  },
+  output: {
+    path: path.resolve(__dirname, "assets", "js"),
+    filename: "[name].js", // [name]: entry의 key부분이 파일이름으로 들어간다.
+  },
+```
+
+assets script를 실행해줘야한다.
+
+main script와 videoPlayer script가 실행되는 위치를 나누기로 한다.
+기존 script부분을 'block script'로 변경 후 각 페이지마다 불러올 script를 block에 넣어준다.
