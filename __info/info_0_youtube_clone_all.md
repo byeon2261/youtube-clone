@@ -1897,3 +1897,13 @@ div
   - mute 기능 구현
   - mute버튼 text 변경
   - input range 변경 (0, 0.5) (비디오 플레이어에는 적용안됨)
+
+### 11.3 Volume
+
+volume 변경 기능을 넣어준다.
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range>
+
+- input range를 변경하면 video의 volume이 변경
+- mute상태에서 input range값을 변경하면 unmute상태로 변경
+- mute후 unmute버튼을 클릭하면 mute전 볼륨으로 변경
