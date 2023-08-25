@@ -1869,3 +1869,15 @@ assets script를 실행해줘야한다.
 
 main script와 videoPlayer script가 실행되는 위치를 나누기로 한다.
 기존 script부분을 'block script'로 변경 후 각 페이지마다 불러올 script를 block에 넣어준다.
+
+### 11.1 Play Pause
+
+템플릿에 video play관련된 button및 input을 생성한다.
+
+```pug
+div
+    button#play play  # '#play': play는 id이다.
+    button#mute mute
+    span#time 00:00/00:00
+    input(type="range", step="0.1", min="0", max="1")#volumn
+```
