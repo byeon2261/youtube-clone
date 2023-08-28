@@ -1907,3 +1907,8 @@ volume 변경 기능을 넣어준다.
 - input range를 변경하면 video의 volume이 변경
 - mute상태에서 input range값을 변경하면 unmute상태로 변경
 - mute후 unmute버튼을 클릭하면 mute전 볼륨으로 변경
+
+### 11.4 Duration and Current Time
+
+loadedmetadata
+timeupdate
