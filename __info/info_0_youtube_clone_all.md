@@ -1940,3 +1940,18 @@ element.requestFullScreen
 document.fullscreenElement() >>>: null을 반환할 경우 fullsreen상황이 아님
 
 <https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement>
+
+### 11.8 Controls Events part One
+
+마우스가 비디오 화면으로 옮기면 컨트롤러가 보이도록 구현한다.
+
+마우스가 비디오화면에 이동될때 클래스명을 넣어주고 클래스명이 있을때 컨트롤러가 보이도록 한다.
+클래스명은 마우스가 비디오에서 멀어져도 3초 뒤에 사라지도록 적용한다.
+
+timeout을 사용하여 기능구현을 한다.
+3초안에 다시 비디오에 들어가도 timeout동안 인식이 되지않아 시간이 지나면 클래스명이 사라진다.
+setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeout(id)를 사용하여 setTimeout 상태에서 빠져 나온다.
+
+<https://developer.mozilla.org/ko/docs/Web/API/clearTimeout>
+
+다음강의에 비디오에 마우스가 있어도 움직임이 없으면 컨트롤러를 숨기는 기능을 구현한다.
