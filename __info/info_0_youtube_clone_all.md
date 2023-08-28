@@ -1923,3 +1923,20 @@ timeupdate
   - 최대값 설정
   - current time에 맞춰 value변경
   - input 값 변경에 따라 video current time 변경
+
+### 11.7 Fullscreen
+
+element.requestFullScreen
+
+- 버튼 클릭시
+  - fullscreen
+  - 버튼 innerText = Exit Fullscreen
+- full screen시
+  - 버튼 클릭하면 exit fullscreen
+  - 버튼 text 변경
+
+풀스크린시 컨트롤러도 같이 풀스크린에 포함되길 원함. video와 컨트롤러를 div에 넣는다
+
+document.fullscreenElement() >>>: null을 반환할 경우 fullsreen상황이 아님
+
+<https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement>
