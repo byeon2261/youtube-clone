@@ -1916,3 +1916,10 @@ timeupdate
 ### 11.5 Time Formatting
 
 - Date Format
+
+### 11.6 Timeline
+
+- Time line (input range)
+  - 최대값 설정
+  - current time에 맞춰 value변경
+  - input 값 변경에 따라 video current time 변경

@@ -3,15 +3,17 @@ extends base.pug
 block content 
     //-
         h1=video.title
-    video(src="/" + video.filePath, controls)
+    video(src="/" + video.filePath)
     div 
         button#play play 
         button#mute mute 
+        input(type="range", step="0.1", value=0.5, min="0", max="1")#volume
         div 
             span#currentTime 0:00
             span / 
             span#totalTime 0:00
-        input(type="range", step="0.1", value=0.5, min="0", max="1")#volume
+        div
+            input(type="range", step="1", value=0, min="0")#timeLine
     //-
         h3 #{video.views} #{video.views === 1 ? "view" : "views"}
         small #{video.hashtags}
