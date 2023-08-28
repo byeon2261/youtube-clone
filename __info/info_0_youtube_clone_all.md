@@ -1912,3 +1912,7 @@ volume 변경 기능을 넣어준다.
 
 loadedmetadata
 timeupdate
+
+### 11.5 Time Formatting
+
+- Date Format
