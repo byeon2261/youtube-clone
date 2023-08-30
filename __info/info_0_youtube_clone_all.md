@@ -2026,3 +2026,28 @@ $ npm i regenerator-runtime
 preview.srcObject = media;
 preview.play();
 ```
+
+### 13.2 Recording Video
+
+받아오는 stream 데이터를 녹화하는 기능을 구현한다.
+media recording
+
+<https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder>
+
+removeEventListener()를 사용하여 기능을 삭제 할 수 있다.
+
+```js
+const handleStopClick = () => {
+  startBtn.innerText = "Start Recording!";
+  startBtn.removeEventListener("click", handleStopClick);
+  startBtn.addEventListener("click", handleStartClick);
+};
+
+const handleStartClick = () => {
+  startBtn.innerText = "Stop Recording!";
+  startBtn.removeEventListener("click", handleStartClick);
+  startBtn.addEventListener("click", handleStopClick);
+
+  const mediaRecorder = new MediaRecorder(stream);
+};
+```
