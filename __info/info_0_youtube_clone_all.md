@@ -2051,3 +2051,37 @@ const handleStartClick = () => {
   const mediaRecorder = new MediaRecorder(stream);
 };
 ```
+
+### 13.3 Recording Video part Two
+
+Stop recording 버튼을 클릭했을때 녹화가 중지되도록 수정하겠다.
+
+이제 stream data를 저장하도록 하겠다.
+
+<https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static>
+
+createObjectUrl은 파일이 브라우저 메모리에 생성되는 url을 준다. 해당 url이 파일을 가리키고 있다.
+
+```js
+recorder.ondataavailable = (event) => {
+  const video = URL.createObjectURL(event.data);
+  console.log(video);
+};
+```
+
+```sh
+>>>: blob:http://localhost:4000/35a36d7a-75fe-4733-8f4c-85a4dd43d0e0
+```
+
+blob url을 따라가면 서버상에는 없는 것을 볼 수 있다. (Cannot GET /35a36d7a-75fe-4733-8f4c-85a4dd43d0e0)
+
+해당 파일을 video src property에 넣어준다.
+
+```js
+preview.srcObject = null;
+preview.src = videoFile;
+preview.loop = true;
+preview.play();
+```
+
+저장된 데이터가 실행되는 것을 볼 수 있다.
