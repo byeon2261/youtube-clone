@@ -12,6 +12,7 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const videoControllers = document.getElementById("videoControllers");
 
 let controllerTimeoutId = null;
+let movingTimeoutId = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -49,7 +50,7 @@ const handleVolumeChange = (event) => {
 const timeFormat = (second) =>
   new Date(second * 1000).toISOString().substring(11, 19);
 
-const handleLoadedMetadata = () => {
+const handleMetadata = () => {
   totalTime.innerText = timeFormat(Math.floor(video.duration));
   timeLine.max = Math.floor(video.duration);
 };
@@ -75,24 +76,37 @@ const handleFullScreenClick = () => {
   }
 };
 
+const controllerClassRemove = () =>
+  videoControllers.classList.remove("showing");
+
 const handleVideoMouseMove = () => {
   if (controllerTimeoutId) {
     clearTimeout(controllerTimeoutId);
     controllerTimeoutId = null;
   }
+  if (movingTimeoutId) {
+    clearTimeout(movingTimeoutId);
+    movingTimeoutId = null;
+  }
+
   videoControllers.classList.add("showing");
+  movingTimeoutId = setTimeout(() => {
+    controllerClassRemove();
+  }, 3000);
 };
 
 const handleVIdeoMouseLeave = () => {
   controllerTimeoutId = setTimeout(() => {
-    videoControllers.classList.remove("showing");
+    controllerClassRemove();
   }, 3000);
 };
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadedmetadata", handleLoadedMetadata);
+video.readyState
+  ? handleMetadata()
+  : video.addEventListener("loadedmetadata", handleMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeLine.addEventListener("input", handleTimeLineChange);
 fullScreenBtn.addEventListener("click", handleFullScreenClick);

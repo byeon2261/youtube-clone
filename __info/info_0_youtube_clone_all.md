@@ -1913,6 +1913,18 @@ volume 변경 기능을 넣어준다.
 loadedmetadata
 timeupdate
 
+브라우져를 새로 고침시 loadedmatadate이벤트가 발생하지 않는 오류가 있다.
+
+<https://stackoverflow.com/questions/33316493/why-does-loadedmetadata-not-consistently-fire>
+
+@src/client/js/videoPlayer.js
+
+```js
+video.readyState
+  ? handleMetadata()
+  : video.addEventListener("loadedmetadata", handleMetadata);
+```
+
 ### 11.5 Time Formatting
 
 - Date Format
@@ -1955,3 +1967,62 @@ setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeou
 <https://developer.mozilla.org/ko/docs/Web/API/clearTimeout>
 
 다음강의에 비디오에 마우스가 있어도 움직임이 없으면 컨트롤러를 숨기는 기능을 구현한다.
+
+### 11.9 Controls Events part Two
+
+마우스 움직임이 멈추는것을 인지하도록 한다.
+
+```js
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+  ...
+  timeoutId = setTimeout(() => {
+    videoControllers.classList.remove("showing");
+  }, 3000);
+```
+
+움직임이 인식되는 동안 timeout을 clear한다.
+움직임이 멈추면 마지막에 이뤄진 setTimeout()이 실행되면서 class명이 빠진다.
+
+### 13.0 Recorder Setup
+
+Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
+
+<https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia>
+
+async, await를 사용할 때 regenerator-runtime를 인식할 수 없다며 오류가 발생한다.
+
+<https://www.npmjs.com/package/regenerator-runtime>
+
+regenerator-runtime를 설치하여 import해준다.
+
+```sh
+$ npm i regenerator-runtime
+```
+
+@src/cient/js/main.js 에 import 를 해주며 base.pug에 script를 넣어준다.
+
+# ! Uncaught (in promise) DOMException: Permission denied 오류발생
+
+테스트를 브레이브 브라우저를 사용하고 있었는데 브레이브 브라우저는 권한요청을 중간에서 차단하면서 권한을 가져오지 못했다.
+
+테스트를 크롬에선 진행함
+
+---
+
+녹화, 녹음이 가능하다.
+
+### 13.1 Video Preview
+
+녹화되는 데이터를 미리보기 기능을 구현한다.
+
+```pug
+  video#preview
+```
+
+```js
+preview.srcObject = media;
+preview.play();
+```
