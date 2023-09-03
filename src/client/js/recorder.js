@@ -8,7 +8,7 @@ let videoFile;
 const handleDownloadClick = () => {
   const a = document.createElement("a");
   a.href = videoFile;
-  a.download = "MyRecording.mp4";
+  a.download = "MyRecording.webm";
   document.body.appendChild(a);
   a.click();
 };

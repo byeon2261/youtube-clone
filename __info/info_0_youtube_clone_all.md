@@ -2090,3 +2090,31 @@ preview.play();
 
 브라우저에 띄워져있는 동영상을 '우클릭 - 동영상 다른이름으로 저장' 으로 저장이 가능하다.
 해당 기능을 버튼에 넣어서 다운로드 가능하도록 구현한다.
+
+<https://developer.mozilla.org/ko/docs/Web/API/Document/createElement>
+
+@src/client/js/recorder.js
+
+```js
+const handleDownloadClick = () => {
+  const a = document.createElement("a");
+  a.href = videoFile;
+  a.download = "MyRecording.webm"; // mac에서는 webm확장자가 실행이 된다.
+  document.body.appendChild(a);
+  a.click();
+};
+```
+
+## 14 WebAssembly Video Transcode
+
+### 14.0 Introduction
+
+브라우져에서 비디오 변환 기능을 구현한다. 일반적으로 유튜브사이트는 비싼비용의 서버를 둬서 영상변환을 진행한다.
+대신에 우리는 본인 컴퓨터에서 영상변환 기능을 사용한다.
+영상변환에는 FFmpeg 와 웹어셈블리를 사용한다. FFmpeg(영상변환) 프로그램을 웹어셈블리를 이용하여 브라우져에서 실행한다.
+
+<https://ffmpeg.org/documentation.html>
+
+```sh
+npm i @ffmpeg/ffmpeg @ffmpeg/core
+```
