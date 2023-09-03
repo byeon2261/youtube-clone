@@ -1616,6 +1616,29 @@ require대신에 import를 해주자.
 import "dotenv/config";
 ```
 
+<https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps>
+
+### 7.17 Github Login part Two
+
+github login 파라미터를 추가해주며 url을 정리할 수있는 라우터와 컨트롤러를 만들어준다.
+
+URLSearchParams(): js의 오브젝트 형식의 데이터를 parameter형식으로 변환시켜준다.
+
+```js
+const config = {
+  client_id: "94cf88c350148b7acec6",
+  allow_signup: "false",
+  scope: "read:user user:email",
+};
+const params = new URLSearchParams(config).toString();
+```
+
+```sh
+params >>>: client_id=94cf88c350148b7acec6&allow_signup=false&scope=read%3Auser+user%3Aemail
+```
+
+<https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams>
+
 ### 8.6 File Uploads part One
 
 ```sh
@@ -2116,5 +2139,5 @@ const handleDownloadClick = () => {
 <https://ffmpeg.org/documentation.html>
 
 ```sh
-npm i @ffmpeg/ffmpeg @ffmpeg/core
+$ npm i @ffmpeg/ffmpeg @ffmpeg/core
 ```

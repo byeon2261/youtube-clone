@@ -95,4 +95,19 @@ export const postUserProfile = async (req, res) => {
   return res.redirect("/users/edit-profile");
 };
 
+export const githubStart = (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    client_id: "94cf88c350148b7acec6",
+    allow_signup: "false",
+    scope: "read:user user:email",
+  };
+  const params = new URLSearchParams(config).toString();
+  return res.redirect(`${baseUrl}?${params}`);
+};
+
+export const githubFinish = (req, res) => {
+  return res.redirect("/");
+};
+
 export const see = (req, res) => req.send("see User");
