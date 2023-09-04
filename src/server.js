@@ -1,6 +1,7 @@
 import express from "express";
 import gimochi from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import rootRouter from "./routes/rootRouter";
 import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/uploads", express.static("uploads"));

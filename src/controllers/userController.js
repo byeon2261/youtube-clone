@@ -43,14 +43,13 @@ export const postJoin = async (req, res) => {
     });
   }
 
+  req.flash("success", "Create user.");
   return res.redirect("/login");
 };
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("remove User");
 export const getLogin = (req, res) =>
-  res.render("login", {
-    pageTitle: "Login",
-  });
+  res.render("login", { pageTitle: "Login" });
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -71,10 +70,12 @@ export const postLogin = async (req, res) => {
   req.session.loggedIn = true;
   req.session.user = user;
   console.log("❇️ Log user in.", username);
+  req.flash("info", "Hello!");
   return res.redirect("/");
 };
 export const logout = (req, res) => {
   req.session.destroy();
+  // req.flash("info", "Good bye!");
   return res.redirect("/");
 };
 
@@ -92,6 +93,7 @@ export const postUserProfile = async (req, res) => {
     avatarUrl: file ? file.path : avatarUrl,
   });
   req.session.user = updatedUser;
+  req.flash("succes", "Modified is done.");
   return res.redirect("/users/edit-profile");
 };
 
@@ -107,6 +109,7 @@ export const githubStart = (req, res) => {
 };
 
 export const githubFinish = (req, res) => {
+  req.flash("info", "hello!");
   return res.redirect("/");
 };
 

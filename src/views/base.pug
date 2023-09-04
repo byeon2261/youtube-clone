@@ -1,9 +1,13 @@
+include mixins/massage
+
 doctype html
 html 
     head 
         title #{pageTitle} | Youtube 
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")        
-    body 
+    body  
+        if (messages.info)
+            +message("info", messages.info)
         header
             h1=pageTitle
             img(src="/" + loggedInUser.avatarUrl width=100 heigth=100)

@@ -2141,3 +2141,58 @@ const handleDownloadClick = () => {
 ```sh
 $ npm i @ffmpeg/ffmpeg @ffmpeg/core
 ```
+
+## 15 Flash Messages
+
+### 15.0 Installation
+
+에러나 상태 메세지를 사용자에게 전달하는 목적으로 Flash Message를 사용해보자.
+
+<https://www.npmjs.com/package/express-flash>
+
+```sh
+$ npm i express-flash
+```
+
+@src/middleware.js
+
+```js
+import flash from "express-flash";
+app.use(flash());
+```
+
+@.../...Controller.js
+
+```js
+req.flash("info", "Hello!");
+return res.redirect("/");
+```
+
+messages에 담겨서 탬플릿에 전달된다.
+@src/views/--.pug
+
+```pug
+if messages.info
+  span=messages.info // >>>: Hello!
+```
+
+### 15.1 Sending Messages
+
+mixins을 사용하여 메세지를 표기하며 scss를 사용하여 메세지가 발생, 소멸을 구현한다.
+
+- mixins/message 생성
+- base.pug에 해당 mixins include
+- scss에 메세지 에니메이션 추가. @src/client/scss/styles.scss 참조
+
+<!-- ## 99 [Youtube_Challenge] Graduation Assignment!
+
+유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요
+
+- 사용자 인증(로그인 / 계정 만들기)
+- 프로필 편집 / 암호 변경
+- 동영상 업로드
+- 동영상 검색
+- 동영상 편집
+- 동영상 보기
+- Javascript 비디오 플레이어
+- 댓글 섹션 + 코드 챌린지(Watch: #16)) -->
