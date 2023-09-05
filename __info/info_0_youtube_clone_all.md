@@ -2184,6 +2184,19 @@ mixins을 사용하여 메세지를 표기하며 scss를 사용하여 메세지�
 - base.pug에 해당 mixins include
 - scss에 메세지 에니메이션 추가. @src/client/scss/styles.scss 참조
 
+## 16 Comment Section
+
+### 16.1 Comment Models
+
+졸업 과제를 위한 마지막 프로젝트를 진행하도록 한다. 동영상에 댓글을 다는 기능을 구현한다.
+
+- 모델 생성
+  - text
+  - owner
+  - video
+  - createdAt
+- video 모델에 comments 추가
+
 <!-- ## 99 [Youtube_Challenge] Graduation Assignment!
 
 유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요

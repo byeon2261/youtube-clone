@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, require: true },
   email: { type: String, require: true, unique: true },
   location: String,
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 userSchema.pre("save", async function () {
