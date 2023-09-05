@@ -2188,7 +2188,7 @@ mixins을 사용하여 메세지를 표기하며 scss를 사용하여 메세지�
 
 ### 16.1 Comment Models
 
-졸업 과제를 위한 마지막 프로젝트를 진행하도록 한다. 동영상에 댓글을 다는 기능을 구현한다.
+졸업 과제를 위한 마지막 프로젝트를 진행하도록 한다. 동영상에 댓글을 다는 기능을 구현한다. 백엔드
 
 - 모델 생성
   - text
@@ -2196,6 +2196,16 @@ mixins을 사용하여 메세지를 표기하며 scss를 사용하여 메세지�
   - video
   - createdAt
 - video 모델에 comments 추가
+
+### 16.2 Comment Box
+
+프론트엔드쪽 작업을 진행하자.
+
+- 템블릿에 댓글 추가하는 div생성 @.../watch.pug
+- commentSection.js 파일 생성 (@src/client/js/)
+- webpack에 추가
+
+데이터를 가져오는 것까지 확인
 
 <!-- ## 99 [Youtube_Challenge] Graduation Assignment!
 
