@@ -6,6 +6,7 @@ import {
   getUpload,
   postUpload,
   deleteVideo,
+  postComment,
 } from "../controllers/videoController";
 import { uploadVideo } from "../middleware";
 
@@ -18,5 +19,6 @@ videoRouter
   .route("/upload")
   .get(getUpload)
   .post(uploadVideo.single("video"), postUpload);
+videoRouter.post("/:id([0-9a-f]{24})/comment", postComment);
 
 export default videoRouter;

@@ -2207,6 +2207,41 @@ mixins을 사용하여 메세지를 표기하며 scss를 사용하여 메세지�
 
 데이터를 가져오는 것까지 확인
 
+### 16.3 API Route part One
+
+로그인을 하지 않았을때 엘리먼트를 찾지 못하는 에러 수정과 데이터를 post하는 기능을 구현한다.
+
+댓글다는 form을 로그인시 표시되도록 적용했었다.
+
+@src/views/watch.pug
+
+```pug
+if loggedIn
+  div.video__comments
+    form.video__comment-form#commentForm
+      textarea(cols="30", rows="10" plaseholder="Write a comment...")
+      button Submit comment
+```
+
+로그인을 안했을때 문서상에 textarea엘리먼트가 존재하지 않기때문에 front-end에서 해당 엘리먼트를 불러올때 에러가 발생한다.
+해당 부분을 로그인했을 때 가져오는 것으로 수정한다.
+
+@src/client/js/commentSection.js
+
+```js
+const form = document.getElementById("commentForm");
+
+const handleSubmit = (event) => {
+  ...
+  const textarea = form.querySelector("textarea");
+  ...
+};
+
+if (form) {
+  form.addEventListener("submit", handleSubmit);
+}
+```
+
 <!-- ## 99 [Youtube_Challenge] Graduation Assignment!
 
 유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요

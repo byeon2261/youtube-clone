@@ -90,3 +90,9 @@ export const deleteVideo = async (req, res) => {
   await Video.findByIdAndDelete(id); // id == { _id:id }
   return res.redirect("/");
 };
+
+export const postComment = (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  return res.end();
+};
