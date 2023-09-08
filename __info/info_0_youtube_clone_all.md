@@ -1639,6 +1639,145 @@ params >>>: client_id=94cf88c350148b7acec6&allow_signup=false&scope=read%3Auser+
 
 <https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams>
 
+github login페이지에서 콜백받을 url을 FinishGithubLogin의 path로 설정해준다.
+
+### 7.18 Github Login part Three
+
+fetch를 이용해 데이터를 가져와 json형식으로 변환하기로 하겠다
+
+URL?Params 생성 >> fetch진행(json형식으로 받기) >> json변환
+
+@src/controllers/userController.js
+
+```js
+const baseUrl = "https://github.com/login/oauth/access_token";
+const config = {
+  client_id: process.env.GH_CLIENT,
+  client_secret: process.env.GH_SECRIT,
+  code: req.query.code,
+};
+const params = new URLSearchParams(config).toString();
+const finalUrl = `${baseUrl}?${params}`;
+const tokenRequest = await (
+  await fetch(finalUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+).json();
+
+console.log(tokenRequest);
+```
+
+```sh
+{
+  access_token: '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',
+  token_type: 'bearer',
+  scope: 'read:user,user:email'
+}
+```
+
+하지만 fetch는 정의되어 있지않다며 오류가 발생한다. fetch는 브라우져에서만 실행이 가능하며 nodeJS에서는 실행이 안된다.
+다음강의에 해당 오류를 수정해본다.
+
+### 7.19 Github Login part Four
+
+nodeJS에서 실행이 가능한 node-fetch를 설치해준다.
+node-fetch 3버젼 이상은 실행시 [ERR_REQUIRE_ESM]에러가 발생한다.
+하위버젼을 설치한다.
+
+<https://nomadcoders.co/wetube/lectures/2710>
+
+```sh
+$ npm install node-fetch@2.6.1
+```
+
+<https://www.npmjs.com/package/node-fetch>
+
+설치 후 import해준다.
+
+@src/controllers/userController.js
+
+```js
+import fetch from "node-fetch";
+```
+
+fetch를 진행하여 데이터를 가져올 수 있다.
+
+이제 OAuth어플의 3단계를 진행한다. 토큰을 github로그인에 보내줘야한다.
+
+<https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#3-use-the-access-token-to-access-the-api>
+
+```js
+if ("access_token" in tokenRequest) {
+  const { access_token } = tokenRequest;
+  const userRequest = await (
+    await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+  ).json();
+  console.log(userRequest);
+  // 다음 강의에 더 추가
+} else {
+  return res.redirect("login");
+}
+```
+
+```sh
+{
+  login: 'byeon2261',
+  id: 114720002,
+  node_id: 'U_kgDOBtZ9Ag',
+  avatar_url: 'https://avatars.githubusercontent.com/u/114720002?v=4',
+  gravatar_id: '',
+  url: 'https://api.github.com/users/byeon2261',
+  html_url: 'https://github.com/byeon2261',
+  followers_url: 'https://api.github.com/users/byeon2261/followers',
+  following_url: 'https://api.github.com/users/byeon2261/following{/other_user}',
+  gists_url: 'https://api.github.com/users/byeon2261/gists{/gist_id}',
+  starred_url: 'https://api.github.com/users/byeon2261/starred{/owner}{/repo}',
+  subscriptions_url: 'https://api.github.com/users/byeon2261/subscriptions',
+  organizations_url: 'https://api.github.com/users/byeon2261/orgs',
+  repos_url: 'https://api.github.com/users/byeon2261/repos',
+  events_url: 'https://api.github.com/users/byeon2261/events{/privacy}',
+  received_events_url: 'https://api.github.com/users/byeon2261/received_events',
+  type: 'User',
+  site_admin: false,
+  name: 'G.H. Byeon',
+  company: null,
+  blog: '',
+  location: null,
+  email: 'ghbyeon2261@gmail.com',
+  hireable: null,
+  bio: null,
+  twitter_username: null,
+  public_repos: 14,
+  public_gists: 0,
+  followers: 0,
+  following: 0,
+  created_at: '2022-09-30T04:57:01Z',
+  updated_at: '2023-09-08T04:32:17Z',
+  private_gists: 0,
+  total_private_repos: 0,
+  owned_private_repos: 0,
+  disk_usage: 59102,
+  collaborators: 0,
+  two_factor_authentication: false,
+  plan: {
+    name: 'free',
+    space: 976562499,
+    collaborators: 0,
+    private_repos: 10000
+  }
+}
+```
+
+데이터에 email은 github에 email설정을 private로 한다면 가져오지 못한다.
+해당부분을 대채하도록 다음강의에 수정한다.
+
 ### 8.6 File Uploads part One
 
 ```sh
@@ -2241,6 +2380,25 @@ if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 ```
+
+<!-- ### 16.4 API Route part Two
+
+컨트롤러에서 req.body를 받아 출력을 하여도 값이 제대로 나오지 않는다.
+
+```js
+const obj = {text:"blabla"}
+obj.toString() // 값을 넣을 때 string값으로 들어간다.
+>>>: '[object Object]'
+```
+
+front-end에서 Object형식으로 넣지 않고 value를 바로 넣어주면 인식이 된다.
+
+```js
+body: text; // <<< body: {text}
+```
+
+데이터가 아직 제대로 나오지 않는다. 강의를 뛰어넘은게 있는데 데이터를 태그 id에 넣어서 관리하는거 같다.
+해당부분을 수정 후 진행한다. -->
 
 <!-- ## 99 [Youtube_Challenge] Graduation Assignment!
 

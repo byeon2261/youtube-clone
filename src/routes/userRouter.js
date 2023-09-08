@@ -6,8 +6,8 @@ import {
   see,
   getUserProfile,
   postUserProfile,
-  githubStart,
-  githubFinish,
+  StartGithubLogin,
+  FinishGithubLogin,
 } from "../controllers/userController";
 import { uploadAvatar } from "../middleware";
 
@@ -21,7 +21,7 @@ userRouter
   .get(getUserProfile)
   .post(uploadAvatar.single("avatar"), postUserProfile);
 userRouter.get("/:id", see);
-userRouter.get("/github/start", githubStart);
-userRouter.get("/github/finish", githubFinish);
+userRouter.get("/github/start", StartGithubLogin);
+userRouter.get("/github/finish", FinishGithubLogin);
 
 export default userRouter;
