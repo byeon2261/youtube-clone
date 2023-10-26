@@ -1778,6 +1778,80 @@ if ("access_token" in tokenRequest) {
 데이터에 email은 github에 email설정을 private로 한다면 가져오지 못한다.
 해당부분을 대채하도록 다음강의에 수정한다.
 
+### 7.20 Github Login part Five
+
+유저의 이메일 데이터도 가져오도록 적용하겠다.
+
+@src/controllers/userController.js
+
+기존 user데이터를 가져오는 로직을 email을 추가해주면된다.
+
+```js
+...
+const emailRequest = await (
+  await fetch(`${apiUrl}/user/emails`, {
+  ...
+  })
+)
+console.log(emailRequest);
+```
+
+```sh
+>>>: [
+  {
+    email: 'ghbyeon2261@gmail.com',
+    primary: true,
+    verified: true,
+    visibility: 'public'
+  },
+  {
+    email: '114720002+byeon2261@users.noreply.github.com',
+    primary: false,
+    verified: true,
+    visibility: null
+  }
+]
+```
+
+이제 primary && verified === true인 데이터만 뽑아보도록 하겠다. (해당 로직은 브라우져 콘솔에서 미리 실행해보는 것이 좋다.)
+
+@브라우져 쉘
+
+```sh
+>>> const email = [
+  {
+    email: 'ghbyeon2261@gmail.com',
+    primary: true,
+    verified: true,
+    visibility: 'public'
+  },
+  {
+    email: '114720002+byeon2261@users.noreply.github.com',
+    primary: false,
+    verified: true,
+    visibility: null
+  }
+]
+ undefined
+>>> email.find( email => email.primary === true && email.verified === true)
+ {email: 'ghbyeon2261@gmail.com', primary: true, verified: true, visibility: 'public'}
+```
+
+로직에 추가해준다.
+
+```js
+const email = emailRequest.find(
+  (email) => email.primary === true && email.verified === true
+);
+console.log(email);
+if (!email) {
+  return res.redirect("login");
+}
+```
+
+이메일이 없다면 로그인화면으로 돌려준다. 에러문구는 추후에 추가해주도록 하겠다.
+!(타 사이트도 대표이메일이 없다면 대표이메일을 생성 후 로그인해달라고 하는경우가 많다.)
+
 ### 8.6 File Uploads part One
 
 ```sh
