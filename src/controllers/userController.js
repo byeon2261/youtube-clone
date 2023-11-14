@@ -147,13 +147,30 @@ export const FinishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    const email = emailRequest.find(
+    const emailObj = emailRequest.find(
       (email) => email.primary === true && email.verified === true
     );
-    console.log(email);
-    if (!email) {
+    console.log(emailObj);
+    if (!emailObj) {
       return res.redirect("login");
     }
+    const existingUser = await User.findOne({ email: emailObj.email });
+    if (existingUser) {
+      req.session.loggedIn = true;
+      req.session.user = existingUser;
+    } else {
+      const user = await User.create({
+        socialOnly: true,
+        username: userRequest.login,
+        password: "",
+        name: userRequest.name,
+        email: emailObj.email,
+        location: userRequest.location,
+      });
+      req.session.loggedIn = true;
+      req.session.user = user;
+    }
+    return res.redirect("/");
   } else {
     return res.redirect("login");
   }

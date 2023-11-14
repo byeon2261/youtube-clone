@@ -1852,6 +1852,13 @@ if (!email) {
 이메일이 없다면 로그인화면으로 돌려준다. 에러문구는 추후에 추가해주도록 하겠다.
 !(타 사이트도 대표이메일이 없다면 대표이메일을 생성 후 로그인해달라고 하는경우가 많다.)
 
+### 7.21 Github Login part Six
+
+github login finish
+
+email 데이터로 User를 찾은 후 로그인하며 User 데이터가 없을 경우 User를 생성합니다.
+로그인 로직은 postLogin()의 로직을 가져와서 사용했다.
+
 ### 8.6 File Uploads part One
 
 ```sh
