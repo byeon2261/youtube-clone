@@ -1859,6 +1859,17 @@ github login finish
 email 데이터로 User를 찾은 후 로그인하며 User 데이터가 없을 경우 User를 생성합니다.
 로그인 로직은 postLogin()의 로직을 가져와서 사용했다.
 
+### 7.22 Log Out
+
+log out contoller 추가
+
+```js
+req.session.destroy();
+return res.redirect("/");
+```
+
+login 데이터가 지워진다.
+
 ### 8.6 File Uploads part One
 
 ```sh

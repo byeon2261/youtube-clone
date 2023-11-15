@@ -53,7 +53,7 @@ export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username, socialOnly: false });
   const pageTitle = "Login";
   if (!user) {
     return res.status(400).render("login", {
@@ -75,8 +75,8 @@ export const postLogin = async (req, res) => {
   return res.redirect("/");
 };
 export const logout = (req, res) => {
-  req.session.destroy();
   // req.flash("info", "Good bye!");
+  req.session.destroy();
   return res.redirect("/");
 };
 
@@ -154,12 +154,9 @@ export const FinishGithubLogin = async (req, res) => {
     if (!emailObj) {
       return res.redirect("login");
     }
-    const existingUser = await User.findOne({ email: emailObj.email });
-    if (existingUser) {
-      req.session.loggedIn = true;
-      req.session.user = existingUser;
-    } else {
-      const user = await User.create({
+    const user = await User.findOne({ email: emailObj.email });
+    if (!user) {
+      user = await User.create({
         socialOnly: true,
         username: userRequest.login,
         password: "",
@@ -167,16 +164,14 @@ export const FinishGithubLogin = async (req, res) => {
         email: emailObj.email,
         location: userRequest.location,
       });
-      req.session.loggedIn = true;
-      req.session.user = user;
     }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    req.flash("info", "hello!");
     return res.redirect("/");
   } else {
     return res.redirect("login");
   }
-
-  req.flash("info", "hello!");
-  return res.redirect("/");
 };
 
 export const see = (req, res) => req.send("see User");
