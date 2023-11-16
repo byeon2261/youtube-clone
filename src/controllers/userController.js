@@ -174,4 +174,4 @@ export const FinishGithubLogin = async (req, res) => {
   }
 };
 
-export const see = (req, res) => req.send("see User");
+export const see = (req, res) => res.send("see User");

@@ -9,19 +9,24 @@ import {
   StartGithubLogin,
   FinishGithubLogin,
 } from "../controllers/userController";
-import { uploadAvatar } from "../middleware";
+import {
+  protectorMiddleware,
+  publicOnlyMiddleware,
+  uploadAvatar,
+} from "../middleware";
 
 const userRouter = express.Router();
 
 userRouter.get("/edit", edit);
-userRouter.get("/logout", logout);
+userRouter.get("/logout", protectorMiddleware, logout);
 userRouter.get("/remove", remove);
 userRouter
   .route("/edit-profile")
+  .all(protectorMiddleware)
   .get(getUserProfile)
   .post(uploadAvatar.single("avatar"), postUserProfile);
 userRouter.get("/:id", see);
-userRouter.get("/github/start", StartGithubLogin);
-userRouter.get("/github/finish", FinishGithubLogin);
+userRouter.get("/github/start", publicOnlyMiddleware, StartGithubLogin);
+userRouter.get("/github/finish", publicOnlyMiddleware, FinishGithubLogin);
 
 export default userRouter;
