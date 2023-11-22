@@ -17,9 +17,9 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get("/edit", edit);
+userRouter.get("/edit", protectorMiddleware, edit);
 userRouter.get("/logout", protectorMiddleware, logout);
-userRouter.get("/remove", remove);
+userRouter.get("/remove", protectorMiddleware, remove);
 userRouter
   .route("/edit-profile")
   .all(protectorMiddleware)

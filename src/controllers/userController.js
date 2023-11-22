@@ -48,6 +48,9 @@ export const postJoin = async (req, res) => {
   return res.redirect("/login");
 };
 export const edit = (req, res) => res.send("Edit User");
+
+export const postEdit = (req, res) => {};
+
 export const remove = (req, res) => res.send("remove User");
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
@@ -81,7 +84,7 @@ export const logout = (req, res) => {
 };
 
 export const getUserProfile = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "Edit user profile" });
+  return res.render("edit-profile", { pageTitle: "My profile" });
 };
 export const postUserProfile = async (req, res) => {
   const {
@@ -89,9 +92,15 @@ export const postUserProfile = async (req, res) => {
       user: { _id, avatarUrl },
     },
     file,
+    body: { name, email, username, location },
   } = req;
+  console.log(location);
   const updatedUser = await User.findByIdAndUpdate(_id, {
     avatarUrl: file ? file.path : avatarUrl,
+    name,
+    email,
+    username,
+    location,
   });
   req.session.user = updatedUser;
   req.flash("succes", "Modified is done.");
