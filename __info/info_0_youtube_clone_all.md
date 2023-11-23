@@ -1870,6 +1870,84 @@ return res.redirect("/");
 
 login 데이터가 지워진다.
 
+### 8.1 Protector and Public Middlewares
+
+로그인한 사용자만 접근이 가능하게 하는 미들웨어를 생성한다.
+
+@src/middleware.js
+
+```js
+export const protectorMiddleware = (req, res, next) => {
+  if (req.session.loggedIn) {
+    return next();
+  } else {
+    return res.redirect("/login");
+  }
+};
+```
+
+@src/routes/router.js
+
+```js
+userRouter.get("/remove", protectorMiddleware, remove);
+userRouter
+  .route("/edit-profile")
+  .all(protectorMiddleware) // get, post 상관없이 middleware 실행
+  .get(getUserProfile)
+  .post(uploadAvatar.single("avatar"), postUserProfile);
+```
+
+### 8.2 Edit Profile POST part One
+
+user profile update part 1
+
+### 8.3 Edit Profile POST part Two
+
+db업데이트는 완료했지만 프론트엔드에서 업데이트데이터가 반영이 되지 않는다.
+loggedinUser 데이터를 프론트에 넣어주고 있지만 loggedinUser데이터는 로그인 할때 user의 데이터이다.
+
+즉, db와 연결되어 있지 않은 상태이다.
+
+업데이트한 데이터를 frontend에 넣어준다.
+
+findByIdAndUpdate()는 update하기전의 데이터를 return해주는 것이 기본 설정이다.
+
+<https://mongoosejs.com/docs/7.x/docs/api/model.html#Model.findByIdAndUpdate()>
+
+{new: true} 를 넣어준다.
+
+! CODECHELLENGE ! # 다른 유저가 사용하는 이메일이나 username으로 변경을 할려면 오류로 알려준다.
+
+-체크리스트-
+
+- username과 email을 session값과 loggedinUser데이터를 비교하여 변경을 진행하는지 체크
+  - 값이 다르다면 DB에 session과 같은 값이 있는지 체크 (값이 다른 데이터만 체크)
+    - 없다면 다같이 업데이트 진행, 있다면 같은 값이 있다고 오류 알람
+  - 값이 같다면 그외의 값만 update진행
+
+여러 데이터를 비교하고 싶다면 params에 push 로직을 사용해보자.
+
+```js
+let searchParams = []; // 비교 데이터 집어 넣기
+if (email != sessionEmail) {
+  searchParams.push({ email });
+}
+if (username != sessionUsername) {
+  searchParams.push({ username });
+}
+if (searchParams.length > 0) {
+  const findUser = await User.findOne({ $or: searchParams });
+  // mongoDB에는 != 데이터를 비교하는 쿼리가 없는가 ?
+  if (findUser && findUser._id.toString !== _id) {
+    ...
+    return res.render(...)
+  }
+```
+
+! Challenge 댓글 참고 및 확인 !
+
+<https://nomadcoders.co/wetube/lectures/2736>
+
 ### 8.6 File Uploads part One
 
 ```sh

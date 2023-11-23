@@ -89,19 +89,49 @@ export const getUserProfile = (req, res) => {
 export const postUserProfile = async (req, res) => {
   const {
     session: {
-      user: { _id, avatarUrl },
+      user: { _id, avatarUrl, email: sessionEmail, username: sessionUsername },
     },
     file,
     body: { name, email, username, location },
   } = req;
-  console.log(location);
-  const updatedUser = await User.findByIdAndUpdate(_id, {
-    avatarUrl: file ? file.path : avatarUrl,
-    name,
-    email,
-    username,
-    location,
-  });
+  // session, loggedinUser 데이터 비교
+  let searchParams = []; // 비교 데이터 집어 넣기
+  if (email != sessionEmail) {
+    searchParams.push({ email });
+  }
+  if (username != sessionUsername) {
+    searchParams.push({ username });
+  }
+  if (searchParams.length > 0) {
+    const findUser = await User.findOne({ $or: searchParams });
+    // mongoDB에는 != 데이터를 비교하는 쿼리가 없는가 ?
+    if (findUser && findUser._id.toString !== _id) {
+      const emailExist = await User.exists({ email });
+      const usernameExist = await User.exists({ username });
+      return res.render("edit-profile", {
+        pageTitle: "My profile",
+        errorEmail: emailExist ? "Email already exist." : "",
+        errorUsername: usernameExist ? "Username already exist." : "",
+        // 변경하던 데이터 다시 보내주기
+        name,
+        email,
+        username,
+        location,
+        //
+      });
+    }
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatarUrl: file ? file.path : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
   req.session.user = updatedUser;
   req.flash("succes", "Modified is done.");
   return res.redirect("/users/edit-profile");
