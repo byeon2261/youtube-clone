@@ -140,7 +140,31 @@ export const getChangePassword = (req, res) => {
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
 
-export const postChangePassword = (req, res) => {
+export const postChangePassword = async (req, res) => {
+  const pageTitle = "Change Password";
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPasswordConform },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.render("users/change-password", {
+      pageTitle,
+      errorMessage: "Old Password does't matching to your password.",
+    });
+  }
+  if (newPassword !== newPasswordConform) {
+    return res.render("users/change-password", {
+      pageTitle,
+      errorMessage: "New password doesn't matching new password conform.",
+    });
+  }
+
+  user.password = newPassword;
+  await user.save();
   return res.redirect("/users/edit-profile");
 };
 

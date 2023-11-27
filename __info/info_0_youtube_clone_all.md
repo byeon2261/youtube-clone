@@ -1954,6 +1954,10 @@ change password form 생성.
 해당 anker는 edit profile에서 소셜 로그인이 아닌 유저만 가능하도록 적용.
 껍데기와 change-password get 로직만 완성.
 
+### 8.5 Change Password part Two
+
+패스워드를 변경하며 비밀번호 일치 확인 후 DB에 저장한다.
+
 ### 8.6 File Uploads part One
 
 ```sh
