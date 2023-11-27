@@ -1948,6 +1948,12 @@ if (searchParams.length > 0) {
 
 <https://nomadcoders.co/wetube/lectures/2736>
 
+### 8.4 Change Password part One
+
+change password form 생성.
+해당 anker는 edit profile에서 소셜 로그인이 아닌 유저만 가능하도록 적용.
+껍데기와 change-password get 로직만 완성.
+
 ### 8.6 File Uploads part One
 
 ```sh

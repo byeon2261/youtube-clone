@@ -104,7 +104,6 @@ export const postUserProfile = async (req, res) => {
   }
   if (searchParams.length > 0) {
     const findUser = await User.findOne({ $or: searchParams });
-    // mongoDB에는 != 데이터를 비교하는 쿼리가 없는가 ?
     if (findUser && findUser._id.toString !== _id) {
       const emailExist = await User.exists({ email });
       const usernameExist = await User.exists({ username });
@@ -134,6 +133,14 @@ export const postUserProfile = async (req, res) => {
   );
   req.session.user = updatedUser;
   req.flash("succes", "Modified is done.");
+  return res.redirect("/users/edit-profile");
+};
+
+export const getChangePassword = (req, res) => {
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+
+export const postChangePassword = (req, res) => {
   return res.redirect("/users/edit-profile");
 };
 
