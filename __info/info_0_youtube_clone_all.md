@@ -2009,9 +2009,26 @@ console.log(file); // >>>: <https://www.npmjs.com/package/multer#file-informatio
 - avatar 이미지를 보여준다.
   - path를 넣어줄때 root에서부터 찾도록 적용한다.(절대 url)
 
+```pug
+img(src="/" + loggedInUser.avatarUrl) // 절대 url
+```
+
 ### 8.8 Static Files and Recap
 
 - upload폴더 site에서 지정해주기
+
+브라우져는 서버의 모든 폴더에 접근이 가능한것이 아니다. 사용할 폴더를 지정해준다.
+
+@src/server.js
+
+```js
+app.use("/uploads", express.static("uploads"));
+```
+
+<https://expressjs.com/en/starter/static-files.html>
+
+서버에 파일을 저장하면 서버를 재부팅할때마다 파일이 제대로 저장이 안될 수가 있다.
+서버에 파일을 저장해서는 안된다. 나중엔 파일만을 저장하는 클라우드(?)를 따로 둘것이다.
 
 ### 8.9 Video Upload
 

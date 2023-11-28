@@ -36,6 +36,7 @@ export const postJoin = async (req, res) => {
       username,
       password,
       location,
+      avatarUrl: "uploads/avatars/default.jpg",
     });
   } catch (error) {
     return res.status(400).render("join", {
@@ -224,10 +225,11 @@ export const FinishGithubLogin = async (req, res) => {
     if (!emailObj) {
       return res.redirect("login");
     }
-    const user = await User.findOne({ email: emailObj.email });
+    let user = await User.findOne({ email: emailObj.email });
     if (!user) {
       user = await User.create({
         socialOnly: true,
+        avatarUrl: userRequest.avatar_url,
         username: userRequest.login,
         password: "",
         name: userRequest.name,
