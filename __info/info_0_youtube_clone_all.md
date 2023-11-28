@@ -2042,6 +2042,10 @@ app.use("/uploads", express.static("uploads"));
 
 ### 8.10 User Profile
 
+모두가 볼 수 있는 user profile페이지를 생성한다.
+
+see userController에서 user id를 받아 유저정보를 db에서 찾아서 해당 데이터를 profile View로 전송한다.
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.
