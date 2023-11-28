@@ -1977,6 +1977,8 @@ console.log(user.password); // >>>: '$2b$05$NO9fWAGb9GCvw8/YHdOwh.KXF43OaLOfZZCD
 
 ### 8.6 File Uploads part One
 
+파일 업로드 미들웨어인 multer을 설치한다.
+
 ```sh
 $ npm i multer
 ```
@@ -1990,6 +1992,15 @@ $ npm i multer
 - 컨트롤러
 
 multer은 input의 name값을 가져온다.
+
+! 파일 업로드하는 form의 설정에는 'enctype="multipart/form-data"'을 넣어줘야 한다.
+
+@src/controllers/userController.js
+
+```js
+const { file } = req;
+console.log(file); // >>>: <https://www.npmjs.com/package/multer#file-information>
+```
 
 ### 8.7 File Uploads part Two
 

@@ -94,8 +94,7 @@ export const postUserProfile = async (req, res) => {
     file,
     body: { name, email, username, location },
   } = req;
-  // session, loggedinUser 데이터 비교
-  let searchParams = []; // 비교 데이터 집어 넣기
+  let searchParams = [];
   if (email != sessionEmail) {
     searchParams.push({ email });
   }
