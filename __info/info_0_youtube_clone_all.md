@@ -1958,6 +1958,23 @@ change password form 생성.
 
 패스워드를 변경하며 비밀번호 일치 확인 후 DB에 저장한다.
 
+User를 save할때 user model의 pre함수가 실행이 된다.
+
+@src/models/User.js
+
+```js
+userSchema.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 5);
+});
+```
+
+```js
+user.password = newPassword;
+console.log(user.password); // >>>: '12'
+await user.save();
+console.log(user.password); // >>>: '$2b$05$NO9fWAGb9GCvw8/YHdOwh.KXF43OaLOfZZCDHSiZTsJ6Vbu972nl2'
+```
+
 ### 8.6 File Uploads part One
 
 ```sh
