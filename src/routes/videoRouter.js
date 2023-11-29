@@ -19,7 +19,7 @@ videoRouter
   .get(getEdit)
   .post(postEdit);
 videoRouter
-  .route("/:id([0-9a-f]{24})/delete", deleteVideo)
+  .get("/:id([0-9a-f]{24})/delete", deleteVideo)
   .all(protectorMiddleware);
 videoRouter
   .route("/upload")

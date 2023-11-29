@@ -17,18 +17,25 @@ block content
                 input(type="range", step="1", value=0, min="0")#timeLine
             div
                 button#fullScreen Enter Full Screen
+        div 
+            small uploaded by #{owner.username}
+            br
+            small=video.owner
+            br
+            small=loggedInUser._id
         if loggedIn
             div.video__comments
                 form.video__comment-form#commentForm
                     textarea(cols="30", rows="10" plaseholder="Write a comment...") 
                     button Submit comment
-    //-
+    
         h3 #{video.views} #{video.views === 1 ? "view" : "views"}
         small #{video.hashtags}
-        hr
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+        if video.owner == loggedInUser._id 
+            hr
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
 
 block script
     script(src="/assets/js/videoPlayer.js") 

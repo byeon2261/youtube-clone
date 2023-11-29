@@ -253,5 +253,8 @@ export const see = async (req, res) => {
   if (!user) {
     return res.status(404).render("notFound", { pageTitle: "User not found." });
   }
-  return res.render("users/profile", { pageTitle: user.name, user });
+  return res.render("users/profile", {
+    pageTitle: `${user.name}의 profile`,
+    user,
+  });
 };

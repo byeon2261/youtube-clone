@@ -2046,6 +2046,19 @@ app.use("/uploads", express.static("uploads"));
 
 see userController에서 user id를 받아 유저정보를 db에서 찾아서 해당 데이터를 profile View로 전송한다.
 
+### 8.11 Video Owner
+
+User모델과 Video모델을 연결하도록 하겠다.
+
+@src/models/Video.js
+
+```js
+owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: User },
+```
+
+1. Video owner이면 edit video, delete video버튼을 보여준다.
+2. 유저의 닉네임을 비디오 하단에 표기한다.
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.

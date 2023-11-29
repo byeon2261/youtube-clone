@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./User";
 
 const videoSchema = new mongoose.Schema({
   filePath: { type: String, required: true },
@@ -6,6 +7,7 @@ const videoSchema = new mongoose.Schema({
   description: { type: String, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: User },
   meta: {
     views: { type: Number, default: 0, required: true },
     rating: { type: Number, default: 0, required: true },
