@@ -2059,6 +2059,23 @@ owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: User },
 1. Video owner이면 edit video, delete video버튼을 보여준다.
 2. 유저의 닉네임을 비디오 하단에 표기한다.
 
+### 8.12 Video Owner part Two
+
+비디오 owner저장 방식을 보완하며 비디오에서 user개인정보창으로 이동(ancer) 및 유저창에서 업로드한 영상을 보여주도록 적용한다.
+
+model의 find()를 사용할때 모델 타입의 데이터를 찾아서 추가해줄 수 있다.
+
+@src/controllers/videoControllers.js
+
+```js
+const video = await Video.findById(id).populate("owner");
+```
+
+owner컬럼에 Object type으로 user데이터가 전부 담기게 된다.
+
+1. 탬플렛에 username을 ancer로 개인 profile로 연결해주며
+2. 개인 프로파일에 사용자가 올린 영상 리스트를 보여준다.
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.
