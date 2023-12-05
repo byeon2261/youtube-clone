@@ -2076,6 +2076,10 @@ owner컬럼에 Object type으로 user데이터가 전부 담기게 된다.
 1. 탬플렛에 username을 ancer로 개인 profile로 연결해주며
 2. 개인 프로파일에 사용자가 올린 영상 리스트를 보여준다.
 
+### 8.13 User's Videos
+
+User 모델에 Video 컬럼을 추가해준다. 복수 object를 저장하도록 array형식으로 지정해준다.
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.
