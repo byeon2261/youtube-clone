@@ -57,7 +57,7 @@ export const getEdit = async (req, res) => {
 export const postEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
   checkVideoOwner(req, res, video);
   if (!video) {
     return res
@@ -102,7 +102,7 @@ export const postUpload = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
   checkVideoOwner(req, res, video);
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
