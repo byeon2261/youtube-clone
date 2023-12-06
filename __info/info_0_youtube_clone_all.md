@@ -2113,6 +2113,22 @@ export const checkVideoOwner = (req, res, video) => {
 };
 ```
 
+!!! updatevideo 및 deleteVideo 에서 exist 사용하던 부분을 findByOne으로 수정
+
+!!! deleteVideo()시 user 데이터에 videos도 수정하도록 적용.
+
+@src/controllers/videoController.js - deleteVideo()
+
+```js
+let user = await User.findOne({ videos: id });
+user.videos.splice(id, 1); // 이반 splice와 다르게 index를 넣지 않고 column을 넣어도 된다!! ?
+await user.save();
+```
+
+- video와 유저 컬럼의 videos를 삭제할때 유저컬럼에서 삭제를 실패했을 때 video데이터를 되돌리는 기능을 구현하고 싶다.
+
+해당 기능 구현방법 확인중.
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.

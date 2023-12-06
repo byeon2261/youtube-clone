@@ -105,6 +105,9 @@ export const deleteVideo = async (req, res) => {
   const video = await Video.findById(id);
   checkVideoOwner(req, res, video);
   await Video.findByIdAndDelete(id);
+  let user = await User.findOne({ videos: "id" });
+  user.videos.splice(id, 1);
+  await user.save();
   return res.redirect("/");
 };
 

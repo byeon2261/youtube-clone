@@ -19,13 +19,17 @@ videoRouter
   .get(getEdit)
   .post(postEdit);
 videoRouter
-  .get("/:id([0-9a-f]{24})/delete", deleteVideo)
-  .all(protectorMiddleware);
+  .all(protectorMiddleware)
+  .get("/:id([0-9a-f]{24})/delete", deleteVideo);
 videoRouter
   .route("/upload")
   .all(protectorMiddleware)
   .get(getUpload)
   .post(uploadVideo.single("video"), postUpload);
-videoRouter.post("/:id([0-9a-f]{24})/comment", postComment);
+videoRouter.post(
+  "/:id([0-9a-f]{24})/comment",
+  protectorMiddleware,
+  postComment
+);
 
 export default videoRouter;
