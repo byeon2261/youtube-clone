@@ -2080,6 +2080,39 @@ owner컬럼에 Object type으로 user데이터가 전부 담기게 된다.
 
 User 모델에 Video 컬럼을 추가해준다. 복수 object를 저장하도록 array형식으로 지정해준다.
 
+### 8.14 Bugfix
+
+!!! video를 저장할때 user데이터의 videos컬럼에 데이터를 넣어준다.
+mongooses의 save()를 실행할때 user Model의 userSchema.pre()가 실행이 되었다.
+해당 함수내의 hash()가 실행되면서 user의 password가 변경되었다.
+
+해당 함수가 password가 변경될 때만 실행되도록 bugfix를 진행한다.
+
+```js
+// 기존 함수
+userSchema.pre("save", async function () {
+  // 추가된 함수
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 5); // 기존 함수
+  }
+});
+```
+
+<https://mongoosejs.com/docs/api/document.html#Document.prototype.$isModified()>
+isModified() // mongoose 함수
+
+!!! 동영상 템플릿에서 동영상 owner가 아니라면 edit, delete video페이지에 들어가지 못하다록 되어 있다.
+하지만 url을 입력해서는 해당 페이지에 들어갈 수 있으니 back-end에서도 접근을 하지 못하도록 bugfix를 진행한다.
+
+```js
+export const checkVideoOwner = (req, res, video) => {
+  const { _id } = req.session.user;
+  if (String(video.owner) !== _id) {
+    return res.status(403).redirect("/");
+  }
+};
+```
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.

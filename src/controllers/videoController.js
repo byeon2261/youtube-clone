@@ -36,10 +36,17 @@ export const watch = async (req, res) => {
     .render("notFound", { pageTitle: "Video not found.", video });
 };
 
+export const checkVideoOwner = (req, res, video) => {
+  const { _id } = req.session.user;
+  if (String(video.owner) !== _id) {
+    return res.status(403).redirect("/");
+  }
+};
+
 export const getEdit = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
-  console.log("  ❗️video >>>:", video);
+  checkVideoOwner(req, res, video);
   if (!video) {
     return res
       .status(404)
@@ -51,6 +58,7 @@ export const postEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id });
+  checkVideoOwner(req, res, video);
   if (!video) {
     return res
       .status(404)
@@ -94,7 +102,9 @@ export const postUpload = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
-  await Video.findByIdAndDelete(id); // id == { _id:id }
+  const video = await Video.exists({ _id: id });
+  checkVideoOwner(req, res, video);
+  await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
 
