@@ -2129,6 +2129,8 @@ await user.save();
 
 해당 기능 구현방법 확인중.
 
+## 9. Webpack
+
 ### 9.0 Introduction to Webpack
 
 이제부터 front-end를 작업진행한다. 업계 표준인 webpack을 사용한다.
@@ -2219,6 +2221,7 @@ WARNING in configuration
 Set 'mode' option to 'development' or 'production'
 ```
 
+@webpack.config.js의
 mode옵션에 development를 넣어주면 asset파일에 개발자가 보기쉽게 파일 변환을 시켜준다.
 (production 일 경우에는 압축변환한다.)
 
@@ -2315,10 +2318,49 @@ asset파일도 변경되었으며 브라우져 화면도 변경된다.
 
 ### 9.5 MiniCssExtractPlugin
 
-style-loader대신에 mini-css-extract-plugin 을 사용하여 css파일을 생성한다.
+style-loader을 이제는 사용하지 않는다.
+대신 css를 js안에 넣기는 싫으니 (js를 불러올 때 로딩시간이 길어진다.)
+mini-css-extract-plugin 을 사용하여 css파일을 생성한다.
 이 플러그인은 CSS를 별도의 파일로 추출합니다
 
 <https://webpack.js.org/plugins/mini-css-extract-plugin/>
+
+```sh
+>>> npm install --save-dev mini-css-extract-plugin
+```
+
+webpack config의 모델 use에 style.loader대신에 설치한 plugin으로 변경해준다.
+
+```js
+{
+  test: /\.scss$/,
+  use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+},
+```
+
+webpack config에 pugins를 추가해준다.
+
+```js
+plugins: [
+  new MiniCssExtractPlugin({
+    filename: "css/styles.css",
+  }),
+],
+```
+
+assets폴더에 js, css폴더가 분리되어 저장된다.
+@src/views/base.pug에 해당 css파일을 추가해준다.
+
+```pug
+head
+  link(rel="stylesheet", href="/static/css/styles.css")
+```
+
+!!! url에 assets를 포함시킬시 오류가 발생한다고 한다. @src/server.js에 assets -> static으로 변경
+
+```js
+app.use("/static", express.static("assets"));
+```
 
 ### 11.0 Player Setup
 

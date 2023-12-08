@@ -1,4 +1,5 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BASE_JS = "./src/client/js/";
 
 module.exports = {
@@ -9,9 +10,14 @@ module.exports = {
     commentSection: BASE_JS + "commentSection.js",
   },
   mode: "development",
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/styles.css",
+    }),
+  ],
   output: {
-    path: path.resolve(__dirname, "assets", "js"),
-    filename: "[name].js",
+    path: path.resolve(__dirname, "assets"),
+    filename: "js/[name].js",
   },
   module: {
     rules: [
@@ -26,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
