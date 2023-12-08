@@ -2362,6 +2362,56 @@ head
 app.use("/static", express.static("assets"));
 ```
 
+### 9.6 Better Developer Experience
+
+front-end쪽에 변경을 진행할때 자동으로 변경사항을 적용하도록 한다.
+
+@webpack.config.js
+
+```js
+watch: true;
+```
+
+assets script를 실행하면 종료되지않고 상시 업데이트를 한다.
+이제 파일을 변경할 때 client에 없는 파일은 삭제하도록 적용하겠다.
+
+```js
+output: {
+  clean: true,
+}
+```
+
+이제 front-end가 변경될 시 back-end가 재실행이 되는것을 수정하도록 하겠다.
+
+@nodemon.json 생성
+
+```json
+{
+  "ignore": ["webpack.config.js", "src/client/*"]
+}
+```
+
+<https://www.npmjs.com/package//nodemon#config-files>
+
+@package.json 에서 dev script를 nodemon실행으로 변경한다.
+
+```json
+"scripts": {
+  "dev": "nodemon" // <- "dev": "nodemon --exec babel-node src/init.js",
+}
+```
+
+기존에 있던 exec명령어를 nodemon.json에 적용시켜준다.
+
+```json
+{
+  "ignore": ["webpack.config.js", "src/client/*"],
+  "exec": "babel-node src/init.js"
+}
+```
+
+front-end 파일이 변경되어도 서버가 재실행되지 않는다.
+
 ### 11.0 Player Setup
 
 기본 video player 대신에 커스텀한 video player를 만들도록 하겠다.
