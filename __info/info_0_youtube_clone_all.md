@@ -2412,6 +2412,30 @@ output: {
 
 front-end 파일이 변경되어도 서버가 재실행되지 않는다.
 
+## 10 Styles
+
+### 10.0 Introduction
+
+1. 기존에 사용하던 MVP css를 지워준다.
+2. font-awesome을 사용한다.
+
+- <https://cdnjs.com/libraries/font-awesome>
+
+3. 기본으로 들어있는 padding, border를 리셋해주는 \_reset.scss를 넣어준다.
+
+- <https://meyerweb.com/eric/tools/css/reset/>
+
+font-awesome이 제대로 작동하는지 테스트를 한다. youtube아이콘을 사용해서 anker를 적용
+
+```pug
+a(href="/")
+  i.fa-brands.fa-youtube // === <i class="fa-brands fa-youtube"></i>
+```
+
+4. 각 views/partials마다 scss/components파일을 생성하여 적용해주는 것을 규칙으로 한다.
+
+font-family는 apple설정을 사용했다. 이렇게 기본 구조 설정을 진행하였다.
+
 ### 11.0 Player Setup
 
 기본 video player 대신에 커스텀한 video player를 만들도록 하겠다.
