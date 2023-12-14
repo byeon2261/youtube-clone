@@ -2436,6 +2436,12 @@ a(href="/")
 
 font-family는 apple설정을 사용했다. 이렇게 기본 구조 설정을 진행하였다.
 
+### 10.1 Styles part One
+
+- header, footer
+- home, search
+  - video, video_grid
+
 ### 11.0 Player Setup
 
 기본 video player 대신에 커스텀한 video player를 만들도록 하겠다.

@@ -2,11 +2,19 @@ extends base.pug
 include mixins/video
 
 block content 
-    h2 Welcome to trend video! 
-    each video in videos 
-        +video(video)
-    else 
-        li Sorry, nothing found.
+    div.video_grid
+        each video in videos 
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+        else 
+            span.empty__message Sorry, nothing found.
 
 block script 
     script(src="/assets/js/main.js") 

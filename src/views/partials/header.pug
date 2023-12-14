@@ -1,5 +1,5 @@
 header
-    a(href="/")
+    a(href="/").header__logo
         i.fa-brands.fa-youtube 
     h1=pageTitle
     if (loggedInUser.socialOnly)
@@ -8,22 +8,23 @@ header
         img(src="/" + loggedInUser.avatarUrl, width=100, heigth=100)
     nav
         ul
+            li 
+                a(href="/search") 
+                    i.fa-solid.fa-magnifying-glass
             li
                 a(href="/") Home
-            li 
-                a(href="/search") Search
             li 
                 a(href=`/users/6565858b38cd3462afa8b7b4`) admin profile
             if loggedIn
                 li 
-                    a(href="/users/logout") Log out
-                li 
                     a(href="/users/edit-profile") My profile                        
                 li 
                     a(href="/videos/upload") Upload Video
+                li.header__btn 
+                    a(href="/users/logout") Log out
             else
                 li
                     a(href="/join") Join
-                li
+                li.header__btn
                     a(href="/login") Login
         

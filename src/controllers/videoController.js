@@ -2,7 +2,9 @@ import User from "../models/User";
 import Video from "../models/Video";
 
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({ createAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createAt: "desc" })
+    .populate("owner");
   const { user } = req.session;
   console.log(user);
   return res.render("home", { pageTitle: "Home", videos });
