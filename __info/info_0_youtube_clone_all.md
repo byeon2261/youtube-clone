@@ -2582,6 +2582,17 @@ setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeou
 움직임이 인식되는 동안 timeout을 clear한다.
 움직임이 멈추면 마지막에 이뤄진 setTimeout()이 실행되면서 class명이 빠진다.
 
+### 11.11 Styles Recap
+
+비디오 컨트롤러 스타일을 적용한다.
+
+- 컨트롤 기능을 컨트롤러 div에 담아준다. (@watch.pug)
+- @src/client/scss/video-player.scss 추가
+- js에 기능 구현
+
+! Code Challenge!!
+유튜브와 같이 space버튼 클릭 및 화면 클릭시 실행/일시정지 기능 구현
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
