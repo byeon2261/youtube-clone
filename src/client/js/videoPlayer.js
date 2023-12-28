@@ -37,20 +37,34 @@ const handleMuteClick = (e) => {
   muteBtnIcon.classList = video.muted
     ? "fas fa-volume-mute"
     : "fas fa-volume-up";
-  // ? "fa-solid fa-volume-xmark"
   volumeRange.value = video.muted ? 0 : volumeValue;
 };
 
-const handleVolumeChange = (event) => {
-  const {
-    target: { value },
-  } = event;
-  if (video.muted) {
+const handleVolumeChange = (value) => {
+  if (video.muted && value != 0) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
+    muteBtnIcon.classList = "fas fa-volume-up";
   }
   volumeValue = value;
   video.volume = volumeValue;
+};
+const handleVolumeRangeInput = (event) => {
+  const {
+    target: { value },
+  } = event;
+  handleVolumeChange(value);
+};
+const handleVolumeKeyDown = (args) => {
+  let value = Number;
+  if (volumeValue < 0.05 && args == "-0.05") {
+    value = 0;
+  } else if (volumeValue > 0.95 && args == "0.05") {
+    value = 1;
+  } else {
+    value = Number((volumeValue + args).toFixed(2));
+  }
+  handleVolumeChange(value);
+  volumeRange.value = value;
 };
 
 const timeFormat = (second) =>
@@ -70,6 +84,10 @@ const handleTimeLineChange = (event) => {
     target: { value },
   } = event;
   video.currentTime = value;
+};
+
+const handleChangeCurrentTime = (seconds) => {
+  video.currentTime += seconds;
 };
 
 const handleFullScreenClick = () => {
@@ -107,13 +125,33 @@ const handleVIdeoMouseLeave = () => {
   }, 3000);
 };
 
+document.addEventListener("keydown", (e) => {
+  if (e.key == " ") {
+    e.preventDefault();
+    handlePlayClick();
+  } else if (e.key == "m") {
+    handleMuteClick();
+  } else if (e.key == "ArrowLeft") {
+    handleChangeCurrentTime(-5);
+  } else if (e.key == "ArrowRight") {
+    handleChangeCurrentTime(5);
+  } else if (e.key == "ArrowUp") {
+    e.preventDefault();
+    handleVolumeKeyDown(0.05);
+  } else if (e.key == "ArrowDown") {
+    e.preventDefault();
+    handleVolumeKeyDown(-0.05);
+  }
+});
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
-volumeRange.addEventListener("input", handleVolumeChange);
+volumeRange.addEventListener("input", handleVolumeRangeInput);
 video.readyState
   ? handleMetadata()
   : video.addEventListener("loadedmetadata", handleMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("click", handlePlayClick);
 videoContainer.addEventListener("mousemove", handleVideoMouseMove);
 videoContainer.addEventListener("mouseleave", handleVIdeoMouseLeave);
 timeLine.addEventListener("input", handleTimeLineChange);
