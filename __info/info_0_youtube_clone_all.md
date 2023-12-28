@@ -2593,6 +2593,12 @@ setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeou
 ! Code Challenge!!
 유튜브와 같이 space버튼 클릭 및 화면 클릭시 실행/일시정지 기능 구현
 
+- video 클릭시 실행/일시정지
+- space keydown시 실행/일시정지(화면 내려감 기능 삭제)
+- 'm'키 keydown시 음소거 토글
+- 화살표 좌우 keydown시 영상 currentTime 앞/뒤로 변경
+- 화살표 위아래 keydown시 영상 음량 변경
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
