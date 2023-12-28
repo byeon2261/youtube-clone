@@ -2599,6 +2599,13 @@ setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeou
 - 화살표 좌우 keydown시 영상 currentTime 앞/뒤로 변경
 - 화살표 위아래 keydown시 영상 음량 변경
 
+## 12 VIEWS API
+
+### 12.0 Register View Controller
+
+영상을 실행하면 view데이터를 더하는 기능을 추가한다.
+apiRouter를 생성하며 videoController에 생성한 새 함수를 호출하여 데이터를 저장한다.
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
