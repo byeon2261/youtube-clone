@@ -1,3 +1,4 @@
+import { async } from "regenerator-runtime";
 import "../scss/styles.scss";
 
 const video = document.querySelector("video");
@@ -125,9 +126,11 @@ const handleVideoMouseLeave = () => {
   }, 3000);
 };
 
-const handleVideoEnded = () => {
+const handleVideoEnded = async () => {
   const { id } = videoContainer.dataset;
-  console.log(fetch(`/api/videos/${id}/view`, { method: "POST" }));
+  await fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
 };
 
 document.addEventListener("keydown", (e) => {
