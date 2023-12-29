@@ -119,10 +119,15 @@ const handleVideoMouseMove = () => {
   }, 3000);
 };
 
-const handleVIdeoMouseLeave = () => {
+const handleVideoMouseLeave = () => {
   controllerTimeoutId = setTimeout(() => {
     controllerClassRemove();
   }, 3000);
+};
+
+const handleVideoEnded = () => {
+  const { id } = videoContainer.dataset;
+  console.log(fetch(`/api/videos/${id}/view`, { method: "POST" }));
 };
 
 document.addEventListener("keydown", (e) => {
@@ -152,7 +157,8 @@ video.readyState
   : video.addEventListener("loadedmetadata", handleMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("click", handlePlayClick);
+video.addEventListener("ended", handleVideoEnded);
 videoContainer.addEventListener("mousemove", handleVideoMouseMove);
-videoContainer.addEventListener("mouseleave", handleVIdeoMouseLeave);
+videoContainer.addEventListener("mouseleave", handleVideoMouseLeave);
 timeLine.addEventListener("input", handleTimeLineChange);
 fullScreenBtn.addEventListener("click", handleFullScreenClick);

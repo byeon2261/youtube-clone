@@ -2606,6 +2606,36 @@ setTimeout()에서 임의의 id를 리턴한다. 해당 id를 받아 clearTimeou
 영상을 실행하면 view데이터를 더하는 기능을 추가한다.
 apiRouter를 생성하며 videoController에 생성한 새 함수를 호출하여 데이터를 저장한다.
 
+### 12.1 Register View Event
+
+영상 시청이 끝나면 front-end에서 back-end의 registerView()를 호출하도록 한다.
+템플릿에서 해당 비디오 아이디를 데이터에 넣어주는 방법에는 data-attribute가 있다.
+
+<https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes>
+
+@src/views/watch.pug
+
+```pug
+div#videoContainer(data-id=video._id)
+```
+
+@src/client/js/videoPlayer.js
+
+```js
+const videoContainer = document.getElementById("videoContainer");
+
+const handleVideoEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/views`);
+};
+
+video.addEventListener("ended", handleVideoEnded);
+```
+
+템플릿에서 data-"변수명"으로 데이터를 지정해주고 "데이터를 넣어준 엘리먼트".dataset."변수명"으로 가져올 수 있다.
+백엔드에 생성한 url을 fetch하여 조회수를 측정하는 함수를 호출한다.
+"ended"이벤트는 video,sound 엘리먼트에서 사용이 가능하다.
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
