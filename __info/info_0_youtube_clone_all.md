@@ -2636,6 +2636,15 @@ video.addEventListener("ended", handleVideoEnded);
 백엔드에 생성한 url을 fetch하여 조회수를 측정하는 함수를 호출한다.
 "ended"이벤트는 video,sound 엘리먼트에서 사용이 가능하다.
 
+### 12.2 Conclusions
+
+영상 끝내는 것으로 fetch를 체크한다. url 마지막 단락명으로 데이터가 표시된다.
+Status에 '(Pending)'으로 표기되면서 연결이 종료되지 않는다.
+registerView()에 return에서 status만 보내주기 때문이다.
+(이전에는 fetch를 하지 않아 render 또는 redirect를 같이 사용했다.)
+
+status대신에 sendStatus를 사용하면 된다.
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
