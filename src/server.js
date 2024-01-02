@@ -34,6 +34,8 @@ app.use(
 app.use((req, res, next) => {
   // console.log(req.headers);
   // console.log("user >>>:", req.session.user);
+  res.header({ "Cross-Origin-Embedder-Policy": "require-corp" });
+  res.header({ "Cross-Origin-Opener-Policy": "same-origin" });
   next();
 });
 

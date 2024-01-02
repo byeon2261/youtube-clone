@@ -2645,6 +2645,8 @@ registerView()에 return에서 status만 보내주기 때문이다.
 
 status대신에 sendStatus를 사용하면 된다.
 
+## 13 Video Recorder
+
 ### 13.0 Recorder Setup
 
 Html 요소를 이용하여 녹화, 녹음 기능을 구현할 수 있다. MediaDevices: getUserMedia() method
@@ -2769,14 +2771,52 @@ const handleDownloadClick = () => {
 ### 14.0 Introduction
 
 브라우져에서 비디오 변환 기능을 구현한다. 일반적으로 유튜브사이트는 비싼비용의 서버를 둬서 영상변환을 진행한다.
-대신에 우리는 본인 컴퓨터에서 영상변환 기능을 사용한다.
-영상변환에는 FFmpeg 와 웹어셈블리를 사용한다. FFmpeg(영상변환) 프로그램을 웹어셈블리를 이용하여 브라우져에서 실행한다.
+(백엔드에 영상변환에 필요한 메모리 용량과 그래픽 카드가 필요할 것이다.)
+대신에 우리는 사용자 브라우져에서 FFmpeg와 웹어셈블리를 사용한다.
+웹어셈블리는 프론트엔드에서 c나 go같은 매우 처리속도가 빠른 언어를 사용 가능하다.
+
+FFmpeg(영상변환) 프로그램을 웹어셈블리를 이용하여 브라우져에서 실행한다.
 
 <https://ffmpeg.org/documentation.html>
+
+<https://github.com/ffmpegwasm/ffmpeg.wasm>
 
 ```sh
 $ npm i @ffmpeg/ffmpeg @ffmpeg/core
 ```
+
+### 14.1 Transcode Video
+
+FFmpeg를 사용하면 프론트에서 컴퓨터를 사용하듯 파일을 생성 및 속성 설정을 할 수 있다.
+ffmpeg를 사용하도록 적용하겠다.
+
+```js
+const ffmpeg = createFFmpeg({ log: true });
+await ffmpeg.load(); // 사용 적용
+
+// 파일생성, 임의의 파일명, 적용할 파일(녹화된 파일)
+ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
+
+// run: 명령어를 쓸 수 있다.
+// "-r", "60": 60 프레임 비디오로 생성한다.
+await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
+```
+
+<https://ffmpeg.org/ffmpeg.html#Main-options>
+
+!!! sharedarraybuffer is not defined. 에러 발생
+
+오류 원인 : SharedArrayBuffer는 cross-origin isolated된 페이지에서만 사용할 수 있습니다.
+따라서 ffmpeg.wasm을 사용하려면 Cross-Origin-Embedder-Policy: require-corp 및
+Cross-Origin-Opener-Policy: same-origin를 header에 설정해 자체 서버를 호스팅해야 합니다.
+
+<https://nomadcoders.co/wetube/lectures/2776/comments/71380>
+<https://github.com/ffmpegwasm/ffmpeg.wasm/issues/263>
+
+nomadcoders 댓글에 해결책 두개를 다 사용하여 해결하였다.
+서버쪽 header를 적용하여 해결.
+
+이제 가상 서버에서 파일이 생성되었다.
 
 ## 15 Flash Messages
 
