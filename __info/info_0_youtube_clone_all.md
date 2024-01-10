@@ -188,7 +188,7 @@ nodemon을 사용하면 서버에 관련된 파일이 변경이 되면 다시 �
 
 console 명령어가 종료되지 않으며 파일이 변경되면 재실행된다.
 
-# 3 Introduction to Express
+## 3 Introduction to Express
 
 ### 3.0 Your First Server
 
@@ -328,7 +328,7 @@ logger기능 구현을 한다.
 
     >>>: GET / 304 1.837 ms - -
 
-# ! 몰랐지만 import부분은 이름을 마음대로 지정이 가능하다.
+#### ! 몰랐지만 import부분은 이름을 마음대로 지정이 가능하다.
 
     import gimochi from "morgan";
 
@@ -376,7 +376,7 @@ clean code에 있는 내용을 비롯해서 설명을 하자면 코드는 생각
 globalRouter는 공통적으로 실행되는 로직만 남겨둔다.
 globalRouter에 있는 기능이 있는 로직은 각 파일로 이동을 해준다.
 
-# ! export를 여러개 보내줄 경우 받는 파일은 dictionary형식으로 받아야한다.
+#### ! export를 여러개 보내줄 경우 받는 파일은 dictionary형식으로 받아야한다.
 
     export const handleWatch = ...
     export const handleEdit = ...
@@ -642,7 +642,7 @@ nav
 
 로그인을 하면 유저 이름과 logout링크를 표시한다. 테스트에서 로그인 상태를 변경하면서 진행하면된다.
 
-# ! 위 로직에서 굳이 li태그를 두번을 사용한 이유가 무엇일까?
+#### ! 위 로직에서 굳이 li태그를 두번을 사용한 이유가 무엇일까?
 
 li태그를 밖으로 빼고 중복을 제거하여 테스트를 진행하여도 기능상 문제는 없어 보인다.
 
@@ -714,7 +714,7 @@ block ...
 
 이전과 같이 작동한다. 이렇게 component를 생성할 수 있다.
 
-# 6 MongoDB and Mongoose
+## 6 MongoDB and Mongoose
 
 ### 6.0 Array Database part One
 
@@ -829,7 +829,7 @@ export const postEdit = (req, res) => {
 
 물론 지금 데이터를 js에 있는 임의 데이터이기 때문에 로직에 있는 데이터가 변경되지는 않는다.
 
-# ! 그러면 변경되는 데이터는 어디에 적용되는건가?
+#### ! 그러면 변경되는 데이터는 어디에 적용되는건가?
 
 메모리에 저장이 된다. array DB는 사용되지 않기 때문에 깊게 파고들 필요가 없다.
 
@@ -900,7 +900,7 @@ $ brew install mongodb-community@6.0
 $ brew services start mongodb-community@6.0
 ```
 
-# ! 윈도우 및 linux, 우분투 설치에 대한 설명들이 해당 강의 댓글에 있다. 참고하자
+#### ! 윈도우 및 linux, 우분투 설치에 대한 설명들이 해당 강의 댓글에 있다. 참고하자
 
 <https://nomadcoders.co/wetube/lectures/2696>
 
@@ -1076,7 +1076,7 @@ Video.find({}, (error, videos) => {
 });
 ```
 
-# ! Model.find() no longer accepts a callback 에러 발생
+#### ! Model.find() no longer accepts a callback 에러 발생
 
 !! mongoose의 버젼이 높아서 발생한 오류였다.
 지금버젼: ^7.~
@@ -1346,13 +1346,13 @@ videos = await Video.find({
 });
 ```
 
-# 7 User Authentication
+## 7 User Authentication
 
 ### 7.0 Create Account part One
 
 유저 입력 및 데이터 확인 로직 생성
 
-## ! 놓혔던 부분.
+#### ! 놓혔던 부분.
 
 - init,server.js에 파일 추가하지 않음
 - form (method="POST") 추가하지 않음
@@ -2665,7 +2665,7 @@ $ npm i regenerator-runtime
 
 @src/cient/js/main.js 에 import 를 해주며 base.pug에 script를 넣어준다.
 
-# ! Uncaught (in promise) DOMException: Permission denied 오류발생
+#### ! Uncaught (in promise) DOMException: Permission denied 오류발생
 
 테스트를 브레이브 브라우저를 사용하고 있었는데 브레이브 브라우저는 권한요청을 중간에서 차단하면서 권한을 가져오지 못했다.
 
@@ -2949,3 +2949,43 @@ body: text; // <<< body: {text}
 - 동영상 보기
 - Javascript 비디오 플레이어
 - 댓글 섹션 + 코드 챌린지(Watch: #16)) -->
+
+## 17 Deployment
+
+### 17.0 Building the Backend
+
+작업된 백엔드를 heroku에 배포를 진행하겠다.
+배포를 하기전 어떤 Node.js에서든 서버가 실행되도록 설정을 변경하겠다.
+
+1. babel-node대신에 구버젼 js파일로 변환을 한다.
+
+babel-node는 실행이 빠르지 않다.
+서버에 배포를 할때는 구버젼방식의 문법으로 변경된 파일을 배포한다.
+@babel/cli 를 사용하여 변환한다. 설치 진행
+
+```sh
+  npm install --save-dev @babel/core @babel/cli
+```
+
+변환 파일을 생성하는 스크립트를 추가해준다. @package.json
+
+```json
+"scripts": {
+  // src파일을 변환하며 (-d:변환 위치) build폴더에 생성한다.
+  "build:server": "babel src -d build",
+  ...
+}
+```
+
+실행하면 지정한 폴더와 파일이 생성된다.
+
+```sh
+$ npm run build:server
+```
+
+이제 build/init.js를 실행하는 script를 추가해준다.
+
+```json
+"script":{
+  "start": "node build/init.js",
+```

@@ -7,6 +7,8 @@
     "url": "git+https://github.com/byeon2261/youtube-clone.git"
   },
   "scripts": {
+    "start": "node build/init.js",
+    "build:server": "babel src -d build",
     "dev:server": "nodemon",
     "dev:assets": "webpack --config webpack.config.js"
   },
@@ -36,7 +38,8 @@
     "regenerator-runtime": "^0.14.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
     "css-loader": "^6.8.1",
