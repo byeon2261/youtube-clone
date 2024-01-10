@@ -2989,3 +2989,16 @@ $ npm run build:server
 "script":{
   "start": "node build/init.js",
 ```
+
+### 17.1 Building the Backend part Two
+
+우선 인강에서는 "regenerator-runtime"에러가 발생하여 오류를 해결하였다.
+지금은 오류가 발생하지 않지만 오류가 날 수도 있는 환경을 위해 설정을 추가한다.
+
+```js
+import "regenerator-runtime";
+```
+
+해당 에러는 async-await를 사용할때 설정값이 없다면 에러가 발생한다.
+
+추후에 @build/serser.js 에 views path를 변경을 진행한다.
