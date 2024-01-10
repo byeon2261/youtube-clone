@@ -3002,3 +3002,19 @@ import "regenerator-runtime";
 해당 에러는 async-await를 사용할때 설정값이 없다면 에러가 발생한다.
 
 추후에 @build/serser.js 에 views path를 변경을 진행한다.
+
+### 17.2 Building the Frontend
+
+asset을 build를 진행한다.
+development mode가 아닌 production mode로 진행한다.
+dev mode일때만 watch:true를 진행한다.
+(@webpack.config.js에 mode, watch설정은 삭제를 한다.)
+
+```json
+"scripts": {
+  "build:assets": "webpack --mode=production",
+  "dev:assets": "webpack --mode=development -w" // -w= (watch: true)
+```
+
+둘다 실행시 브라우져에서 에러가 발생하지 않는다.
+(production mode에서는 압축된 소스를 확인할 수 있다. script code를 open in new tap)
