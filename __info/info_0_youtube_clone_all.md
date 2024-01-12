@@ -1,12 +1,18 @@
 # Youtube clone information !!
 
     setup :
-        nodeJS
-        express
-        babel
-        nodemon
-        morgan
-    업데이트 필요
+      nodeJS
+      express
+      babel
+      nodemon
+      morgan
+      pug
+      js
+      scss
+      webpack
+    deploy:
+      render: front, back end
+      mongo Atlas: DB
 
 파일 path안내중에 src가 빠진 부분도 있지만 package.json 및 설정파일을 제외한 모든 작업파일은 src안에 있다.
 
@@ -2937,19 +2943,6 @@ body: text; // <<< body: {text}
 데이터가 아직 제대로 나오지 않는다. 강의를 뛰어넘은게 있는데 데이터를 태그 id에 넣어서 관리하는거 같다.
 해당부분을 수정 후 진행한다. -->
 
-<!-- ## 99 [Youtube_Challenge] Graduation Assignment!
-
-유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요
-
-- 사용자 인증(로그인 / 계정 만들기)
-- 프로필 편집 / 암호 변경
-- 동영상 업로드
-- 동영상 검색
-- 동영상 편집
-- 동영상 보기
-- Javascript 비디오 플레이어
-- 댓글 섹션 + 코드 챌린지(Watch: #16)) -->
-
 ## 17 Deployment
 
 ### 17.0 Building the Backend
@@ -3043,3 +3036,16 @@ Connect application에는 Driver(Render)를 사용한다.
 해당 설정에 있는 db연결 url을 render의 환경변수 DB_URL의 값에 넣어준다. (admin id와 password 입력)
 
 <https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-render-and-mongodb-atlas> 참고
+
+<!-- ## 99 [Youtube_Challenge] Graduation Assignment!
+
+유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요
+
+- 사용자 인증(로그인 / 계정 만들기)
+- 프로필 편집 / 암호 변경
+- 동영상 업로드
+- 동영상 검색
+- 동영상 편집
+- 동영상 보기
+- Javascript 비디오 플레이어
+- 댓글 섹션 + 코드 챌린지(Watch: #16)) -->
