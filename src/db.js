@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
   useCreateIndex: true, // unique를 사용하면 경고문이 콘솔에서 안나오도록 적용
 });
 
