@@ -3018,3 +3018,28 @@ dev mode일때만 watch:true를 진행한다.
 
 둘다 실행시 브라우져에서 에러가 발생하지 않는다.
 (production mode에서는 압축된 소스를 확인할 수 있다. script code를 open in new tap)
+
+assets과 server를 둘 다 build하는 script도 추가해준다.
+
+```json
+"build": "npm run build:server && npm run build:asset",
+```
+
+### 17.3 Deploying to Heroku
+
+heroku 사이트에서 새로운 대시보드를 생성한다.
+
+<https://nomadcoders.co/wetube/lectures/2784> 강의
+
+! Heroku가 무료버젼이 없어지면서 유료로만 사용이 가능하다. heroku대신 render나 render를 사용한다
+
+render - Web Service를 사용.
+
+### 17.4 MongoDB Atlas
+
+MongoDB Atlas 회원가입 및 데이터베이스를 생성(aws서버에 seaul을 사용)
+
+Connect application에는 Driver(Render)를 사용한다.
+해당 설정에 있는 db연결 url을 render의 환경변수 DB_URL의 값에 넣어준다. (admin id와 password 입력)
+
+<https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-render-and-mongodb-atlas> 참고
