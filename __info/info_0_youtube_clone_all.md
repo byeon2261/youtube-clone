@@ -3037,6 +3037,16 @@ Connect application에는 Driver(Render)를 사용한다.
 
 <https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-render-and-mongodb-atlas> 참고
 
+### 17.5 Environment Variables
+
+deploy한 사이트에서 port를 제공하는 경우가 있다. 그럴경우 제공한 port를 사용하도록 적용한다.
+
+@init.js
+
+```js
+const PORT = process.env.PORT || 4000;
+```
+
 <!-- ## 99 [Youtube_Challenge] Graduation Assignment!
 
 유튜브 솔루션을 만들어 Heroku에 배포한 후 해당 링크를 제출하세요
