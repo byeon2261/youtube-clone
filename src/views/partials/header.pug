@@ -1,34 +1,32 @@
 header
     a(href="/").header__logo
         i.fa-brands.fa-youtube 
-    h1=pageTitle
-    
-    if loggedInUser.avatarUrl === ""
-        span 🙍🏻‍♂️
-    else
-        if loggedInUser.socialOnly
-            img(src=loggedInUser.avatarUrl, width=100, heigth=100)
-        else
-            img(src="/" + loggedInUser.avatarUrl, width=100, heigth=100)
     nav
         ul
-            li 
-                a(href="/search") 
-                    i.fa-solid.fa-magnifying-glass
+            li
+                a(href="/search")
+                    i.fas.fa-search        
             li
                 a(href="/") Home
             li 
-                a(href=`/users/6565858b38cd3462afa8b7b4`) admin profile
+                a(href=`/users/657028ac3f653cf7ef619347`) admin profile
             if loggedIn
-                li 
-                    a(href="/users/edit-profile") My profile                        
                 li 
                     a(href="/videos/upload") Upload Video
                 li.header__btn 
                     a(href="/users/logout") Log out
+                li 
+                    a(href="/users/edit-profile")
+                        if loggedInUser.avatarUrl === ""
+                            span My profile
+                        else
+                            if loggedInUser.socialOnly
+                                img.header__avatar(src=loggedInUser.avatarUrl)
+                            else
+                                img.header__avatar(src="/" + loggedInUser.avatarUrl)
             else
                 li
-                    a(href="/join") Join
-                li.header__btn
                     a(href="/login") Login
+                li
+                    a(href="/join").header__btn  Join
         
