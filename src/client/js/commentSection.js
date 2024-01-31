@@ -9,10 +9,13 @@ const handleSubmit = (event) => {
   const videoId = videoContainer.dataset.id;
   console.log(videoContainer.dataset);
   console.log(videoId);
-
+  if (text == "") {
+    return;
+  }
   fetch(`/videos/${videoId}/comment`, {
     method: "POST",
-    body: text,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
   });
 };
 
