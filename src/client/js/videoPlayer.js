@@ -134,6 +134,9 @@ const handleVideoEnded = async () => {
 };
 
 document.addEventListener("keydown", (e) => {
+  if (e.target.id === "commentArea") {
+    return;
+  }
   if (e.key == " ") {
     e.preventDefault();
     handlePlayClick();
